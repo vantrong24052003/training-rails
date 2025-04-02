@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tổng Quan về Ruby on Rails</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: #cc0000;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+        
+        .content-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #cc0000;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .code-block {
+            background-color: #f8f8f8;
+            border-left: 4px solid #cc0000;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+        }
+        
+        .highlight {
+            background-color: #ffffcc;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .note {
+            background-color: #e8f4fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            header {
+                padding: 20px 0;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .content-section {
+                padding: 20px;
+            }
+        }
+        
+        .directory-tree {
+            background-color: #1e1e1e;
+            border-left: 4px solid #cc0000;
+            padding: 20px;
+            margin: 15px 0;
+            overflow-x: auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .directory-tree pre {
+            margin: 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            line-height: 1.6;
+            white-space: pre;
+        }
+        
+        .directory-tree code {
+            color: #e0e0e0;
+            font-size: 15px;
+        }
+        
+        .root {
+            color: #ff9800;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .directory {
+            color: #42a5f5;
+            font-weight: bold;
+        }
+        
+        .subdirectory {
+            color: #29b6f6;
+            font-weight: 500;
+        }
+        
+        .file {
+            color: #80cbc4;
+        }
+        
+        .directory-tree .comment {
+            color: #9e9e9e;
+            font-style: italic;
+            margin-left: 5px;
+        }
+        /* Hiệu ứng hover */
+        
+        .directory:hover,
+        .subdirectory:hover,
+        .file:hover,
+        .root:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        /* Hiệu ứng đường kẻ */
+        
+        .directory-tree code {
+            position: relative;
+        }
+        
+        .ruby-code {
+            background-color: #282c34;
+            border-left: 4px solid #cc0000;
+            padding: 16px;
+            margin: 15px 0;
+            overflow-x: auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .ruby-code pre {
+            margin: 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            line-height: 1.5;
+            white-space: pre;
+        }
+        
+        .ruby-code code {
+            color: #abb2bf;
+            font-size: 15px;
+        }
+        
+        .ruby-code .keyword {
+            color: #c678dd;
+            /* tím cho từ khóa như do, end */
+        }
+        
+        .ruby-code .method {
+            color: #61afef;
+            /* xanh dương cho methods */
+        }
+        
+        .ruby-code .symbol {
+            color: #e06c75;
+            /* đỏ nhạt cho symbols */
+        }
+        
+        .ruby-code .string {
+            color: #98c379;
+            /* xanh lá cho strings */
+        }
+        
+        .ruby-code .comment {
+            color: #5c6370;
+            /* xám cho comments */
+            font-style: italic;
+        }
+        
+        .ruby-code .number {
+            color: #d19a66;
+            /* cam cho numbers */
+        }
+        /* Hiệu ứng hover cho code block */
+        
+        .ruby-code:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            transition: box-shadow 0.3s ease;
+        }
+        /* Responsive */
+        
+        @media (max-width: 768px) {
+            .directory-tree {
+                padding: 15px;
+            }
+            .directory-tree code {
+                font-size: 13px;
+            }
+            .ruby-code {
+                padding: 12px;
+            }
+            .ruby-code code {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Ruby on Rails</h1>
+            <div class="subtitle">Framework phát triển web hiệu quả và nhanh chóng</div>
+        </header>
+
+        <div class="content-section">
+            <h2>1. Giới thiệu Rails</h2>
+            <p>Ruby on Rails (hay Rails) là một framework phát triển ứng dụng web được viết bằng ngôn ngữ Ruby, theo mô hình MVC (Model-View-Controller).</p>
+            <ul>
+                <li><strong>Convention over Configuration</strong>: Rails ưu tiên quy ước hơn cấu hình, giúp giảm thiểu số lượng quyết định mà nhà phát triển phải đưa ra.</li>
+                <li><strong>DRY (Don't Repeat Yourself)</strong>: Nguyên tắc không lặp lại code, mỗi thành phần chỉ được định nghĩa một lần.</li>
+                <li><strong>Rapid Development</strong>: Cho phép phát triển ứng dụng nhanh chóng với ít code hơn.</li>
+                <li><strong>Cộng đồng lớn</strong>: Nhiều gem (thư viện) hỗ trợ đa dạng chức năng.</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>2. Khởi tạo dự án Rails 7/8</h2>
+            <p>Rails 7/8 đã loại bỏ Webpack và sử dụng các công cụ tích hợp mới như importmap-rails và hotwire.</p>
+
+            <div class="code-block">
+                <span class="directory">gem install rails</span><br>
+                <span class="directory">rails new my_app --css=tailwind</span><br>
+                <span class="directory">rails new my_app --css=tailwind --javascript=importmap --database=postgresql</span>
+            </div>
+
+            <p>Các tùy chọn phổ biến khi tạo dự án:</p>
+            <ul>
+                <li><strong>--css=tailwind/bootstrap/sass</strong>: Chọn framework CSS</li>
+                <li><strong>--javascript=importmap</strong>: Sử dụng Import Maps thay vì Webpack</li>
+                <li><strong>--database=postgresql/mysql/sqlite3</strong>: Chọn cơ sở dữ liệu</li>
+                <li><strong>--skip-test</strong>: Bỏ qua thư mục test mặc định</li>
+            </ul>
+
+            <div class="note">
+                <strong>Lưu ý:</strong> Rails 7/8 đã chuyển sang sử dụng Import Maps và Hotwire (Turbo + Stimulus) thay vì Webpack, giúp đơn giản hóa việc quản lý JavaScript.
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>3. Cấu trúc dự án Rails</h2>
+            <p>Một dự án Rails có cấu trúc thư mục chuẩn như sau:</p>
+
+            <div class="code-block directory-tree">
+                <pre><code><span class="root">my_app/</span>
+          ├── <span class="directory">app/</span>                <span class="comment"># Chứa code chính của ứng dụng</span>
+          │   ├── <span class="subdirectory">assets/</span>         <span class="comment"># JavaScript, CSS, images</span>
+          │   ├── <span class="subdirectory">controllers/</span>    <span class="comment"># Controllers xử lý requests</span>
+          │   ├── <span class="subdirectory">helpers/</span>        <span class="comment"># Helper methods cho views</span>
+          │   ├── <span class="subdirectory">javascript/</span>     <span class="comment"># JavaScript cho ứng dụng</span>
+          │   ├── <span class="subdirectory">models/</span>         <span class="comment"># Models tương tác với database</span>
+          │   └── <span class="subdirectory">views/</span>          <span class="comment"># Templates hiển thị</span>
+          ├── <span class="directory">bin/</span>                <span class="comment"># Các scripts thực thi</span>
+          ├── <span class="directory">config/</span>             <span class="comment"># Cấu hình ứng dụng</span>
+          │   ├── <span class="file">routes.rb</span>       <span class="comment"># Định nghĩa routes</span>
+          │   └── <span class="file">database.yml</span>    <span class="comment"># Cấu hình database</span>
+          ├── <span class="directory">db/</span>                 <span class="comment"># Database schema và migrations</span>
+          ├── <span class="file">Gemfile</span>             <span class="comment"># Danh sách gems sử dụng</span>
+          ├── <span class="directory">lib/</span>                <span class="comment"># Thư viện tùy chỉnh</span>
+          ├── <span class="directory">log/</span>                <span class="comment"># Log files</span>
+          ├── <span class="directory">public/</span>             <span class="comment"># Static files</span>
+          ├── <span class="directory">test/</span> hoặc <span class="directory">spec/</span>    <span class="comment"># Tests</span>
+          └── <span class="directory">tmp/</span>                <span class="comment"># Temporary files</span></code></pre>
+            </div>
+
+            <p>Các thư mục quan trọng nhất:</p>
+            <ul>
+                <li><strong>app/</strong>: Chứa code chính của ứng dụng (models, views, controllers)</li>
+                <li><strong>config/</strong>: Cấu hình ứng dụng, routes, database</li>
+                <li><strong>db/</strong>: Migrations và schema database</li>
+                <li><strong>Gemfile</strong>: Liệt kê các gem (thư viện) sử dụng trong dự án</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>4. Mô hình MVC</h2>
+            <p>Rails tuân theo mô hình MVC (Model-View-Controller) để tổ chức code:</p>
+
+            <ul>
+                <li><strong>Model (app/models/)</strong>:
+                    <ul>
+                        <li>Tương tác với cơ sở dữ liệu</li>
+                        <li>Định nghĩa các quan hệ giữa các đối tượng</li>
+                        <li>Xác thực dữ liệu</li>
+                        <li>Chứa logic nghiệp vụ</li>
+                    </ul>
+                </li>
+                <li><strong>View (app/views/)</strong>:
+                    <ul>
+                        <li>Hiển thị dữ liệu cho người dùng</li>
+                        <li>Sử dụng ERB (Embedded Ruby) hoặc HAML, Slim</li>
+                        <li>Không chứa logic phức tạp</li>
+                    </ul>
+                </li>
+                <li><strong>Controller (app/controllers/)</strong>:
+                    <ul>
+                        <li>Nhận và xử lý requests từ người dùng</li>
+                        <li>Tương tác với Model để lấy dữ liệu</li>
+                        <li>Truyền dữ liệu cho View để hiển thị</li>
+                        <li>Điều hướng luồng xử lý</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>5. RESTful Routes</h2>
+            <p>Rails khuyến khích thiết kế API theo nguyên tắc RESTful, sử dụng 7 action chuẩn:</p>
+
+            <div class="code-block ruby-code">
+                <pre><code><span class="comment"># config/routes.rb</span>
+              <span class="keyword">Rails</span>.<span class="method">application</span>.<span class="method">routes</span>.<span class="method">draw</span> <span class="keyword">do</span>
+                <span class="method">resources</span> <span class="symbol">:posts</span>
+              <span class="keyword">end</span>
+
+              <span class="comment"># Tạo ra 7 routes RESTful:</span>
+              <span class="comment"># GET    /posts          => posts#index    (hiển thị danh sách)</span>
+              <span class="comment"># GET    /posts/new      => posts#new      (form tạo mới)</span>
+              <span class="comment"># POST   /posts          => posts#create   (xử lý tạo mới)</span>
+              <span class="comment"># GET    /posts/:id      => posts#show     (hiển thị chi tiết)</span>
+              <span class="comment"># GET    /posts/:id/edit => posts#edit     (form chỉnh sửa)</span>
+              <span class="comment"># PATCH  /posts/:id      => posts#update   (xử lý cập nhật)</span>
+              <span class="comment"># DELETE /posts/:id      => posts#destroy  (xóa)</span></code></pre>
+            </div>
+
+            <p>Các tùy chọn phổ biến với resources:</p>
+            <ul>
+                <li><strong>only:</strong> Chỉ tạo một số routes cụ thể</li>
+                <li><strong>except:</strong> Tạo tất cả routes trừ những routes được chỉ định</li>
+                <li><strong>member/collection:</strong> Thêm routes tùy chỉnh</li>
+                <li><strong>nested resources:</strong> Routes lồng nhau thể hiện quan hệ giữa các đối tượng</li>
+            </ul>
+
+            <div class="code-block ruby-code">
+                <pre><code><span class="comment"></span># Ví dụ về tùy chỉnh routes</span>
+              <span class="keyword">resources</span> <span class="symbol">:posts</span>, <span class="keyword">only</span>: [<span class="symbol">:index</span>, <span class="symbol">:show</span>] <span class="keyword">do</span>
+                <span class="keyword">resources</span> <span class="symbol">:comments</span>, <span class="keyword">shallow</span>: <span class="symbol">true</span>
+                <span class="keyword">collection</span> <span class="keyword">do</span> <span class="method">get</span> <span class="symbol">'search'</span> <span class="keyword">end</span>
+                <span class="keyword">member</span> <span class="keyword">do</span> <span class="method">patch</span> <span class="symbol">'publish'</span> <span class="keyword">end</span>
+              <span class="keyword">end</span></code></pre>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>6. Macro trong Rails</h2>
+            <p>Rails sử dụng nhiều macro (phương thức class) để định nghĩa các tính năng phổ biến một cách ngắn gọn:</p>
+
+            <h3>Macro trong Model:</h3>
+            <div class="code-block ruby-code">
+                <pre><code><span class="keyword">class</span> <span class="class-name">User</span> < <span class="class-name">ApplicationRecord</span>
+            <span class="comment"># Quan hệ giữa các models</span>
+            <span class="method">has_many</span> <span class="symbol">:posts</span>
+            <span class="method">belongs_to</span> <span class="symbol">:department</span>
+            <span class="method">has_one</span> <span class="symbol">:profile</span>
+            <span class="method">has_and_belongs_to_many</span> <span class="symbol">:roles</span>
+            
+            <span class="comment"># Xác thực dữ liệu</span>
+            <span class="method">validates</span> <span class="symbol">:email</span>, <span class="symbol">presence:</span> <span class="boolean">true</span>, <span class="symbol">uniqueness:</span> <span class="boolean">true</span>
+            <span class="method">validates</span> <span class="symbol">:name</span>, <span class="symbol">length:</span> { <span class="symbol">minimum:</span> <span class="number">2</span>, <span class="symbol">maximum:</span> <span class="number">50</span> }
+            
+            <span class="comment"># Callbacks</span>
+            <span class="method">before_save</span> <span class="symbol">:normalize_email</span>
+            <span class="method">after_create</span> <span class="symbol">:send_welcome_email</span>
+            
+            <span class="comment"># Scopes</span>
+            <span class="method">scope</span> <span class="symbol">:active</span>, -&gt; { <span class="method">where</span>(<span class="symbol">active:</span> <span class="boolean">true</span>) }
+            <span class="method">scope</span> <span class="symbol">:recent</span>, -&gt; { <span class="method">order</span>(<span class="symbol">created_at:</span> <span class="symbol">:desc</span>).<span class="method">limit</span>(<span class="number">5</span>) }
+          <span class="keyword">end</span></code></pre>
+            </div>
+
+            <h3>Macro trong Controller:</h3>
+            <div class="code-block ruby-code">
+                <pre><code><span class="keyword">class</span> <span class="class-name">PostsController</span> < <span class="class-name">ApplicationController</span>
+            <span class="comment"># Filters</span>
+            <span class="method">before_action</span> <span class="symbol">:authenticate_user!</span>
+            <span class="method">before_action</span> <span class="symbol">:set_post</span>, <span class="symbol">only:</span> [<span class="symbol">:show</span>, <span class="symbol">:edit</span>, <span class="symbol">:update</span>, <span class="symbol">:destroy</span>]
+            
+            <span class="comment"># Strong Parameters</span>
+            <span class="keyword">def</span> <span class="method-name">post_params</span>
+              <span class="variable">params</span>.<span class="method">require</span>(<span class="symbol">:post</span>).<span class="method">permit</span>(<span class="symbol">:title</span>, <span class="symbol">:content</span>, <span class="symbol">:category_id</span>)
+            <span class="keyword">end</span>
+            
+            <span class="comment"># Respond_to</span>
+            <span class="method">respond_to</span> <span class="symbol">:html</span>, <span class="symbol">:json</span>
+            
+            <span class="comment"># Rescue_from</span>
+            <span class="method">rescue_from</span> <span class="class-name">ActiveRecord</span>::<span class="class-name">RecordNotFound</span>, <span class="symbol">with:</span> <span class="symbol">:record_not_found</span>
+          <span class="keyword">end</span></code></pre>
+            </div>
+
+            <p>Các macro phổ biến khác:</p>
+            <ul>
+                <li><strong>attr_accessor</strong>: Tạo getter và setter cho thuộc tính ảo</li>
+                <li><strong>delegate</strong>: Ủy quyền phương thức cho đối tượng khác</li>
+                <li><strong>enum</strong>: Định nghĩa trường enum</li>
+                <li><strong>helper_method</strong>: Cho phép sử dụng phương thức controller trong view</li>
+            </ul>
+
+            <h3>Bài tập thực hành</h3>
+
+            <footer>
+                <p>© 2023 Ruby on Rails Tutorial - Tổng quan về Rails</p>
+            </footer>
+        </div>
+</body>
+
+</html>
