@@ -1,0 +1,38 @@
+current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/bcrypt-3.1.12/ext/mri
+/home/vantrong/.rvm/rubies/ruby-3.4.2/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/bcrypt-3.1.12/ext/mri
+make DESTDIR\= sitearchdir\=./.gem.20250403-46420-5z0mts sitelibdir\=./.gem.20250403-46420-5z0mts clean
+
+current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/bcrypt-3.1.12/ext/mri
+make DESTDIR\= sitearchdir\=./.gem.20250403-46420-5z0mts sitelibdir\=./.gem.20250403-46420-5z0mts
+compiling bcrypt_ext.c
+bcrypt_ext.c: In function ‘Init_bcrypt_ext’:
+bcrypt_ext.c:56:6: warning: old-style function definition [-Wold-style-definition]
+   56 | void Init_bcrypt_ext(){
+      |      ^~~~~~~~~~~~~~~
+At top level:
+cc1: note: unrecognized command-line option ‘-Wno-self-assign’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-parentheses-equality’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-constant-logical-operand’ may have been intended to silence earlier diagnostics
+compiling crypt.c
+crypt.c: In function ‘Init_crypt’:
+crypt.c:52:6: warning: old-style function definition [-Wold-style-definition]
+   52 | void Init_crypt()
+      |      ^~~~~~~~~~
+At top level:
+cc1: note: unrecognized command-line option ‘-Wno-self-assign’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-parentheses-equality’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-constant-logical-operand’ may have been intended to silence earlier diagnostics
+compiling crypt_blowfish.c
+compiling crypt_gensalt.c
+compiling wrapper.c
+linking shared-object bcrypt_ext.so
+
+current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/bcrypt-3.1.12/ext/mri
+make DESTDIR\= sitearchdir\=./.gem.20250403-46420-5z0mts sitelibdir\=./.gem.20250403-46420-5z0mts install
+/usr/bin/install -m 0755 bcrypt_ext.so ./.gem.20250403-46420-5z0mts
+
+current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/bcrypt-3.1.12/ext/mri
+make DESTDIR\= sitearchdir\=./.gem.20250403-46420-5z0mts sitelibdir\=./.gem.20250403-46420-5z0mts clean

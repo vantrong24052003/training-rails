@@ -1,9 +1,29 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# db/seeds.rb
+# Tạo users
+admin = User.create!(name: 'Admin', email: 'admin@example.com', password: 'password')
+john = User.create!(name: 'John Doe', email: 'john@example.com', password: 'password')
+
+# Tạo categories
+tech = Category.create!(name: 'Technology', description: 'Tech related posts')
+travel = Category.create!(name: 'Travel', description: 'Travel experiences')
+
+# Tạo posts
+post1 = Post.create!(
+title: 'Getting Started with Rails',
+content: 'Rails is a web application framework...',
+published: true,
+user: admin,
+category: tech
+)
+
+post2 = Post.create!(
+title: 'My Trip to Japan',
+content: 'Japan is an amazing country...',
+published: true,
+user: john,
+category: travel
+)
+
+# Tạo comments
+Comment.create!(content: 'Great post!', user: john, post: post1)
+Comment.create!(content: 'Thanks for sharing', user: admin, post: post2)

@@ -10,40 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 0) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_03_033558) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_trgm"
   enable_extension "plpgsql"
-  enable_extension "unaccent"
-  enable_extension "uuid-ossp"
 
-  create_table "SequelizeMeta", primary_key: "name", id: { type: :string, limit: 255 }, force: :cascade do |t|
-  end
-
-  create_table "categories", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string "name", limit: 255, null: false
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
     t.text "description"
-    t.timestamptz "created_at", null: false
-    t.timestamptz "updated_at", null: false
-    t.string "slug", limit: 255
-
-    t.unique_constraint ["name"], name: "categories_name_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "posts", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string "title", limit: 255
+  create_table "comments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
     t.text "content"
-    t.string "source_url", limit: 255
-    t.string "style", limit: 255
-    t.string "crawl_status", limit: 255
-    t.timestamptz "crawl_time"
-    t.timestamptz "ai_process_time"
-    t.uuid "category_id"
-    t.timestamptz "created_at", null: false
-    t.timestamptz "updated_at", null: false
-    t.string "normalized_title", limit: 255
-    t.index ["normalized_title"], name: "idx_posts_normalized_title_gin", opclass: :gin_trgm_ops, using: :gin
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  add_foreign_key "posts", "categories", name: "posts_category_id_fkey", on_update: :cascade, on_delete: :nullify
+  create_table "posts", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "category_id", null: false
+    t.string "title"
+    t.text "content"
+    t.boolean "published"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_posts_on_category_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
+  add_foreign_key "posts", "categories"
+  add_foreign_key "posts", "users"
 end
