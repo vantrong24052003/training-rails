@@ -67,3 +67,4 @@ gem "slim-rails"
 gem "devise", "~> 4.9"
 gem "erb2slim"
 gem 'rolify'
+gem 'cancancan', '3.5'
