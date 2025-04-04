@@ -10,40 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 0) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_04_041224) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_trgm"
   enable_extension "plpgsql"
-  enable_extension "unaccent"
-  enable_extension "uuid-ossp"
 
-  create_table "SequelizeMeta", primary_key: "name", id: { type: :string, limit: 255 }, force: :cascade do |t|
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
-  create_table "categories", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string "name", limit: 255, null: false
-    t.text "description"
-    t.timestamptz "created_at", null: false
-    t.timestamptz "updated_at", null: false
-    t.string "slug", limit: 255
-
-    t.unique_constraint ["name"], name: "categories_name_key"
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "posts", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string "title", limit: 255
-    t.text "content"
-    t.string "source_url", limit: 255
-    t.string "style", limit: 255
-    t.string "crawl_status", limit: 255
-    t.timestamptz "crawl_time"
-    t.timestamptz "ai_process_time"
-    t.uuid "category_id"
-    t.timestamptz "created_at", null: false
-    t.timestamptz "updated_at", null: false
-    t.string "normalized_title", limit: 255
-    t.index ["normalized_title"], name: "idx_posts_normalized_title_gin", opclass: :gin_trgm_ops, using: :gin
+  create_table "users_roles", id: false, force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "role_id"
+    t.index ["role_id"], name: "index_users_roles_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+    t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
-
-  add_foreign_key "posts", "categories", name: "posts_category_id_fkey", on_update: :cascade, on_delete: :nullify
 end

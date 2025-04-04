@@ -16,16 +16,16 @@ checking for ttyname_r()... yes
 creating Makefile
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/io-console-0.8.0/ext/io/console
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-70d21j sitelibdir\=./.gem.20250402-30601-70d21j clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-vyxs2z sitelibdir\=./.gem.20250403-99984-vyxs2z clean
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/io-console-0.8.0/ext/io/console
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-70d21j sitelibdir\=./.gem.20250402-30601-70d21j
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-vyxs2z sitelibdir\=./.gem.20250403-99984-vyxs2z
 compiling console.c
 linking shared-object io/console.so
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/io-console-0.8.0/ext/io/console
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-70d21j sitelibdir\=./.gem.20250402-30601-70d21j install
-/usr/bin/install -m 0755 console.so ./.gem.20250402-30601-70d21j/io
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-vyxs2z sitelibdir\=./.gem.20250403-99984-vyxs2z install
+/usr/bin/install -m 0755 console.so ./.gem.20250403-99984-vyxs2z/io
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/io-console-0.8.0/ext/io/console
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-70d21j sitelibdir\=./.gem.20250402-30601-70d21j clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-vyxs2z sitelibdir\=./.gem.20250403-99984-vyxs2z clean

@@ -3,10 +3,10 @@ current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/
 creating Makefile
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/websocket-driver-0.7.7/ext/websocket-driver
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-5tbfwe sitelibdir\=./.gem.20250402-30601-5tbfwe clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-mg8z0q sitelibdir\=./.gem.20250403-99984-mg8z0q clean
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/websocket-driver-0.7.7/ext/websocket-driver
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-5tbfwe sitelibdir\=./.gem.20250402-30601-5tbfwe
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-mg8z0q sitelibdir\=./.gem.20250403-99984-mg8z0q
 compiling websocket_mask.c
 websocket_mask.c: In function ‘Init_websocket_mask’:
 websocket_mask.c:26:6: warning: old-style function definition [-Wold-style-definition]
@@ -19,8 +19,8 @@ cc1: note: unrecognized command-line option ‘-Wno-constant-logical-operand’ 
 linking shared-object websocket_mask.so
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/websocket-driver-0.7.7/ext/websocket-driver
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-5tbfwe sitelibdir\=./.gem.20250402-30601-5tbfwe install
-/usr/bin/install -m 0755 websocket_mask.so ./.gem.20250402-30601-5tbfwe
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-mg8z0q sitelibdir\=./.gem.20250403-99984-mg8z0q install
+/usr/bin/install -m 0755 websocket_mask.so ./.gem.20250403-99984-mg8z0q
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/websocket-driver-0.7.7/ext/websocket-driver
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-5tbfwe sitelibdir\=./.gem.20250402-30601-5tbfwe clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-mg8z0q sitelibdir\=./.gem.20250403-99984-mg8z0q clean
