@@ -3,12 +3,11 @@ Rails.application.routes.draw do
     registrations: "auth/registrations",
     sessions: "auth/sessions"
   }
-  resources :home
+   root "posts#index"
 
   namespace :admin do
-   get "dashboard", to: "dashboard#index"
-   
+    resources :posts, except: [ :show ]
   end
 
-  root "home#index"
+  resources :posts, only: [ :index, :show, :new, :create ]
 end

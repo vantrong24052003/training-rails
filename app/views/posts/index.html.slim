@@ -1,0 +1,7 @@
+h1
+  | Posts
+- if user_signed_in?
+  = link_to 'New Post', new_post_path
+- @posts.each do |post|
+  h3
+    = link_to post.title, post_path(post)
