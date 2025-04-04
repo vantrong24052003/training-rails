@@ -5,5 +5,10 @@ Rails.application.routes.draw do
   }
   resources :home
 
+  namespace :admin do
+   get "dashboard", to: "dashboard#index"
+   
+  end
+
   root "home#index"
 end

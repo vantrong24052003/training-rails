@@ -2,5 +2,12 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   protect_from_forgery with: :null_session
   allow_browser versions: :modern
-  protect_from_forgery prepend: true
+  def after_sign_in_path_for(resource)
+    # binding.pry
+    if resource.has_role?(:admin)
+      admin_dashboard_path
+    else
+      root_path
+    end
+  end
 end
