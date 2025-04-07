@@ -3,16 +3,16 @@ current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/
 creating Makefile
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/racc-1.8.1/ext/racc/cparse
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-24nv0p sitelibdir\=./.gem.20250402-30601-24nv0p clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-slruzu sitelibdir\=./.gem.20250403-99984-slruzu clean
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/racc-1.8.1/ext/racc/cparse
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-24nv0p sitelibdir\=./.gem.20250402-30601-24nv0p
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-slruzu sitelibdir\=./.gem.20250403-99984-slruzu
 compiling cparse.c
 linking shared-object racc/cparse.so
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/racc-1.8.1/ext/racc/cparse
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-24nv0p sitelibdir\=./.gem.20250402-30601-24nv0p install
-/usr/bin/install -m 0755 cparse.so ./.gem.20250402-30601-24nv0p/racc
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-slruzu sitelibdir\=./.gem.20250403-99984-slruzu install
+/usr/bin/install -m 0755 cparse.so ./.gem.20250403-99984-slruzu/racc
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/racc-1.8.1/ext/racc/cparse
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-24nv0p sitelibdir\=./.gem.20250402-30601-24nv0p clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-slruzu sitelibdir\=./.gem.20250403-99984-slruzu clean

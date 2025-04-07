@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
-  resources :home
+ devise_for :users, controllers: {
+    registrations: "auth/registrations",
+    sessions: "auth/sessions"
+  }
+   root "posts#index"
 
-  root "home#index"
+  namespace :admin do
+    resources :posts, except: [ :show ]
+  end
+
+  resources :posts, only: [ :index, :show, :new, :create ]
 end

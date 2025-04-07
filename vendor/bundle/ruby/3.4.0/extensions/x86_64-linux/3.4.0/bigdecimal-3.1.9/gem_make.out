@@ -28,17 +28,17 @@ checking for RB_WARN_CATEGORY_DEPRECATED in ruby.h... yes
 creating Makefile
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/bigdecimal-3.1.9/ext/bigdecimal
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-9dgbss sitelibdir\=./.gem.20250402-30601-9dgbss clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-v3tze sitelibdir\=./.gem.20250403-99984-v3tze clean
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/bigdecimal-3.1.9/ext/bigdecimal
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-9dgbss sitelibdir\=./.gem.20250402-30601-9dgbss
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-v3tze sitelibdir\=./.gem.20250403-99984-v3tze
 compiling bigdecimal.c
 compiling missing.c
 linking shared-object bigdecimal.so
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/bigdecimal-3.1.9/ext/bigdecimal
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-9dgbss sitelibdir\=./.gem.20250402-30601-9dgbss install
-/usr/bin/install -m 0755 bigdecimal.so ./.gem.20250402-30601-9dgbss
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-v3tze sitelibdir\=./.gem.20250403-99984-v3tze install
+/usr/bin/install -m 0755 bigdecimal.so ./.gem.20250403-99984-v3tze
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/bigdecimal-3.1.9/ext/bigdecimal
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-9dgbss sitelibdir\=./.gem.20250402-30601-9dgbss clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-v3tze sitelibdir\=./.gem.20250403-99984-v3tze clean

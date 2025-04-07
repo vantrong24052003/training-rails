@@ -6,10 +6,10 @@ checking for whether -fvisibility=hidden is accepted as CFLAGS... yes
 creating Makefile
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/prism-1.4.0/ext/prism
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-uyoke2 sitelibdir\=./.gem.20250402-30601-uyoke2 clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-tyroff sitelibdir\=./.gem.20250403-99984-tyroff clean
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/prism-1.4.0/ext/prism
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-uyoke2 sitelibdir\=./.gem.20250402-30601-uyoke2
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-tyroff sitelibdir\=./.gem.20250403-99984-tyroff
 compiling api_node.c
 compiling api_pack.c
 compiling extension.c
@@ -37,8 +37,8 @@ compiling ./../../src/util/pm_strpbrk.c
 linking shared-object prism/prism.so
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/prism-1.4.0/ext/prism
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-uyoke2 sitelibdir\=./.gem.20250402-30601-uyoke2 install
-/usr/bin/install -m 0755 prism.so ./.gem.20250402-30601-uyoke2/prism
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-tyroff sitelibdir\=./.gem.20250403-99984-tyroff install
+/usr/bin/install -m 0755 prism.so ./.gem.20250403-99984-tyroff/prism
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/prism-1.4.0/ext/prism
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-uyoke2 sitelibdir\=./.gem.20250402-30601-uyoke2 clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-tyroff sitelibdir\=./.gem.20250403-99984-tyroff clean

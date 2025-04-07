@@ -9,16 +9,16 @@ checking for whether -std=c99 is accepted as CFLAGS... yes
 creating Makefile
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/json-2.10.2/ext/json/ext/parser
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-u5c8qs sitelibdir\=./.gem.20250402-30601-u5c8qs clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-d5zf2r sitelibdir\=./.gem.20250403-99984-d5zf2r clean
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/json-2.10.2/ext/json/ext/parser
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-u5c8qs sitelibdir\=./.gem.20250402-30601-u5c8qs
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-d5zf2r sitelibdir\=./.gem.20250403-99984-d5zf2r
 compiling parser.c
 linking shared-object json/ext/parser.so
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/json-2.10.2/ext/json/ext/parser
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-u5c8qs sitelibdir\=./.gem.20250402-30601-u5c8qs install
-/usr/bin/install -m 0755 parser.so ./.gem.20250402-30601-u5c8qs/json/ext
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-d5zf2r sitelibdir\=./.gem.20250403-99984-d5zf2r install
+/usr/bin/install -m 0755 parser.so ./.gem.20250403-99984-d5zf2r/json/ext
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/json-2.10.2/ext/json/ext/parser
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-u5c8qs sitelibdir\=./.gem.20250402-30601-u5c8qs clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-99984-d5zf2r sitelibdir\=./.gem.20250403-99984-d5zf2r clean

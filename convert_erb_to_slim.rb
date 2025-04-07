@@ -8,10 +8,10 @@ views_directory = 'app/views'
 Dir.glob("#{views_directory}/**/*.erb").each do |erb_file|
   # Tạo tên tệp .slim tương ứng
   slim_file = erb_file.sub(/\.erb$/, '.slim')
-  
+
   # Đảm bảo thư mục đích tồn tại
   FileUtils.mkdir_p(File.dirname(slim_file))
-  
+
   # Chuyển đổi tệp .erb thành .slim và lưu vào tệp mới
   File.open(slim_file, 'w') do |f|
     f.write Html2Slim.convert(File.read(erb_file))

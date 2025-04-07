@@ -7,16 +7,16 @@ checking for whether -std=c99 is accepted as CFLAGS... yes
 creating Makefile
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/bootsnap-1.18.4/ext/bootsnap
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-xai43y sitelibdir\=./.gem.20250402-30601-xai43y clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-102033-6iavu1 sitelibdir\=./.gem.20250403-102033-6iavu1 clean
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/bootsnap-1.18.4/ext/bootsnap
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-xai43y sitelibdir\=./.gem.20250402-30601-xai43y
+make DESTDIR\= sitearchdir\=./.gem.20250403-102033-6iavu1 sitelibdir\=./.gem.20250403-102033-6iavu1
 compiling bootsnap.c
 linking shared-object bootsnap/bootsnap.so
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/bootsnap-1.18.4/ext/bootsnap
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-xai43y sitelibdir\=./.gem.20250402-30601-xai43y install
-/usr/bin/install -m 0755 bootsnap.so ./.gem.20250402-30601-xai43y/bootsnap
+make DESTDIR\= sitearchdir\=./.gem.20250403-102033-6iavu1 sitelibdir\=./.gem.20250403-102033-6iavu1 install
+/usr/bin/install -m 0755 bootsnap.so ./.gem.20250403-102033-6iavu1/bootsnap
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/bootsnap-1.18.4/ext/bootsnap
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-xai43y sitelibdir\=./.gem.20250402-30601-xai43y clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-102033-6iavu1 sitelibdir\=./.gem.20250403-102033-6iavu1 clean

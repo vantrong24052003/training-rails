@@ -3,17 +3,17 @@ current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/
 creating Makefile
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/debug-1.10.0/ext/debug
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-jef4wm sitelibdir\=./.gem.20250402-30601-jef4wm clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-102033-xnr3oa sitelibdir\=./.gem.20250403-102033-xnr3oa clean
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/debug-1.10.0/ext/debug
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-jef4wm sitelibdir\=./.gem.20250402-30601-jef4wm
+make DESTDIR\= sitearchdir\=./.gem.20250403-102033-xnr3oa sitelibdir\=./.gem.20250403-102033-xnr3oa
 compiling debug.c
 compiling iseq_collector.c
 linking shared-object debug/debug.so
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/debug-1.10.0/ext/debug
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-jef4wm sitelibdir\=./.gem.20250402-30601-jef4wm install
-/usr/bin/install -m 0755 debug.so ./.gem.20250402-30601-jef4wm/debug
+make DESTDIR\= sitearchdir\=./.gem.20250403-102033-xnr3oa sitelibdir\=./.gem.20250403-102033-xnr3oa install
+/usr/bin/install -m 0755 debug.so ./.gem.20250403-102033-xnr3oa/debug
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/debug-1.10.0/ext/debug
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-jef4wm sitelibdir\=./.gem.20250402-30601-jef4wm clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-102033-xnr3oa sitelibdir\=./.gem.20250403-102033-xnr3oa clean

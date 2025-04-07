@@ -22,5 +22,8 @@ html
         vite_javascript_tag 'application.jsx'
 
       Visit the guide for more information: https://vite-ruby.netlify.app/guide/rails
-  body
+  body.bg-gradient-to-br.from-blue-50.to-indigo-100
+  = render 'shared/header'
+  main
     = yield
+  = render 'shared/footer'

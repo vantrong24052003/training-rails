@@ -34,6 +34,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+gem 'pry'
+
 end
 
 group :development do
@@ -60,4 +63,8 @@ gem "vite_rails"
 gem "pg", "~> 1.1"
 
 
-gem 'slim-rails'
+gem "slim-rails"
+gem "devise", "~> 4.9"
+gem "erb2slim"
+gem 'rolify'
+gem 'cancancan', '3.5'

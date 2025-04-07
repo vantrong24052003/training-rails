@@ -25,18 +25,18 @@ checking for Random.bytes... yes
 creating Makefile
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/puma-6.6.0/ext/puma_http11
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-rgfse8 sitelibdir\=./.gem.20250402-30601-rgfse8 clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-102033-ar2k0o sitelibdir\=./.gem.20250403-102033-ar2k0o clean
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/puma-6.6.0/ext/puma_http11
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-rgfse8 sitelibdir\=./.gem.20250402-30601-rgfse8
+make DESTDIR\= sitearchdir\=./.gem.20250403-102033-ar2k0o sitelibdir\=./.gem.20250403-102033-ar2k0o
 compiling http11_parser.c
 compiling mini_ssl.c
 compiling puma_http11.c
 linking shared-object puma/puma_http11.so
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/puma-6.6.0/ext/puma_http11
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-rgfse8 sitelibdir\=./.gem.20250402-30601-rgfse8 install
-/usr/bin/install -m 0755 puma_http11.so ./.gem.20250402-30601-rgfse8/puma
+make DESTDIR\= sitearchdir\=./.gem.20250403-102033-ar2k0o sitelibdir\=./.gem.20250403-102033-ar2k0o install
+/usr/bin/install -m 0755 puma_http11.so ./.gem.20250403-102033-ar2k0o/puma
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/puma-6.6.0/ext/puma_http11
-make DESTDIR\= sitearchdir\=./.gem.20250402-30601-rgfse8 sitelibdir\=./.gem.20250402-30601-rgfse8 clean
+make DESTDIR\= sitearchdir\=./.gem.20250403-102033-ar2k0o sitelibdir\=./.gem.20250403-102033-ar2k0o clean

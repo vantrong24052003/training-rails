@@ -5,4 +5,9 @@
 import { application } from "./application"
 
 import HelloController from "./hello_controller"
+import NavigationController from "./navigation_controller"
+import LogoutController from "./logout_controller"
+
 application.register("hello", HelloController)
+application.register("navigation", NavigationController)
+application.register("logout", LogoutController)
