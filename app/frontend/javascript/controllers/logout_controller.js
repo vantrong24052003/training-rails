@@ -1,8 +1,8 @@
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   logout(event) {
-    event.preventDefault() 
+    event.preventDefault()
 
     fetch(this.element.href, {
       method: "DELETE",

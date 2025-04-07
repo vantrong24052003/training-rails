@@ -1,4 +1,4 @@
-header.bg-gray-800.shadow-md.sticky.top-0.z-50 data-controller="navigation"
+header.bg-gray-800.shadow-md.sticky.top-0.z-50 data-controller="navigation logout"
   .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8
     .flex.justify-between.h-16.items-center
       / Logo and site name
@@ -33,7 +33,7 @@ header.bg-gray-800.shadow-md.sticky.top-0.z-50 data-controller="navigation"
                 .text-xs.text-gray-500 Logged in
               = link_to "Your Profile", "#", class: "block px-4 py-2 text-md text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out", role: "menuitem"
               = link_to "Settings", "#", class: "block px-4 py-2 text-md text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out", role: "menuitem"
-              = link_to 'Logout', destroy_user_session_path, class: "block px-4 py-2 text-md text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }
+              = link_to 'Logout', destroy_user_session_path, class: "block px-4 py-2 text-md text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out", role: "menuitem", data: { action: "navigation#logout", turbo_method: :delete, turbo_confirm: 'Are you sure?' }
 
         - else
           = link_to new_user_session_path, class: "inline-flex items-center px-4 py-2 border border-gray-300 rounded-md text-md font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out shadow-sm" do
@@ -75,7 +75,7 @@ header.bg-gray-800.shadow-md.sticky.top-0.z-50 data-controller="navigation"
           .mt-3.space-y-1
             = link_to "Your Profile", "#", class: "block px-4 py-2 text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-100 transition duration-150 ease-in-out"
             = link_to "Settings", "#", class: "block px-4 py-2 text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-100 transition duration-150 ease-in-out"
-            = link_to 'Logout', destroy_user_session_path, class: "block px-4 py-2 text-md text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out", data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }
+            = link_to 'Logout', destroy_user_session_path, class: "block px-4 py-2 text-md text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out", data: { action: "navigation#logout", turbo_method: :delete, turbo_confirm: 'Are you sure?' }
         - else
           .space-y-1.px-4
             = link_to new_user_session_path, class: "flex items-center text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-100 px-4 py-2 rounded-md transition duration-150 ease-in-out" do
