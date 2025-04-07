@@ -7,18 +7,17 @@ default: &default
   password: Admin123@
   host: localhost
   post: 5432
- 
+
 
 development:
   <<: *default
-  database: test1
+  database: test3
 
 
 test:
   <<: *default
-  database: test1
+  database: test3
 
 
 production:
   <<: *default
-
