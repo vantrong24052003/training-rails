@@ -20,22 +20,6 @@ export default class extends Controller {
     })
   }
 
-  // Flash message fade out
-  fadeOutFlash() {
-    const flashMessages = document.querySelectorAll('.rounded-md.bg-green-50, .rounded-md.bg-red-50')
-
-    flashMessages.forEach(message => {
-      setTimeout(() => {
-        message.style.transition = 'opacity 0.5s ease'
-        message.style.opacity = '0'
-
-        setTimeout(() => {
-          message.remove()
-        }, 500)
-      }, 3000)
-    })
-  }
-
   // Form validation
   validateForm(event) {
     const form = event.currentTarget

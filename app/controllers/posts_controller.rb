@@ -4,9 +4,11 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.includes(:category, :user).published.order(created_at: :desc)
+      @posts.limit(1).offset(2)
   end
 
   def show
+    # binding.pry
     @comment = Comment.new
     @comments = @post.comments.includes(:user).order(created_at: :desc)
   end
@@ -25,6 +27,10 @@ class PostsController < ApplicationController
       @categories = Category.all
       render :new
     end
+  rescue ActiveRecord::RecordInvalid => e
+    redirect_to new_post_path, alert: "Post creation failed: #{e.message}"
+  rescue => e
+    redirect_to new_post_path, alert: "An unexpected error occurred: #{e.message}"
   end
 
   def edit
@@ -40,20 +46,24 @@ class PostsController < ApplicationController
       @categories = Category.all
       render :edit
     end
+  rescue ActiveRecord::RecordInvalid => e
+    redirect_to edit_post_path(@post), alert: "Post update failed: #{e.message}"
+  rescue => e
+    redirect_to edit_post_path(@post), alert: "An unexpected error occurred: #{e.message}"
   end
 
   def destroy
     authorize @post
     @post.destroy
     redirect_to posts_path, notice: "Post was successfully deleted."
+  rescue => e
+    redirect_to posts_path, alert: "An error occurred while deleting the post: #{e.message}"
   end
 
   private
 
   def set_post
     @post = Post.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to "/404", status: :not_found
   end
 
   def post_params

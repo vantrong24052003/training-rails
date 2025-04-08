@@ -1,12 +1,12 @@
 class Admin::PostsController < Admin::BaseController
   before_action :set_post, only: [ :show, :edit, :update, :destroy ]
-
+paginates_per 25
   def index
     @posts = Post.order(created_at: :desc)
   end
 
   def show
-    # The @post variable is already set by the before_action
+    # binding.pry
   end
 
   def new
@@ -25,6 +25,16 @@ class Admin::PostsController < Admin::BaseController
       @users = User.all
       render :new
     end
+  rescue ActiveRecord::RecordInvalid => e
+    @categories = Category.all
+    @users = User.all
+    flash.now[:alert] = "Post creation failed: #{e.message}"
+    render :new
+  rescue => e
+    @categories = Category.all
+    @users = User.all
+    flash.now[:alert] = "An unexpected error occurred: #{e.message}"
+    render :new
   end
 
   def edit
@@ -40,11 +50,23 @@ class Admin::PostsController < Admin::BaseController
       @users = User.all
       render :edit
     end
+  rescue ActiveRecord::RecordInvalid => e
+    @categories = Category.all
+    @users = User.all
+    flash.now[:alert] = "Post update failed: #{e.message}"
+    render :edit
+  rescue => e
+    @categories = Category.all
+    @users = User.all
+    flash.now[:alert] = "An unexpected error occurred: #{e.message}"
+    render :edit
   end
 
   def destroy
     @post.destroy
     redirect_to admin_posts_path, notice: "Post was successfully deleted."
+  rescue => e
+    redirect_to admin_posts_path, alert: "An error occurred while deleting the post: #{e.message}"
   end
 
   private

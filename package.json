@@ -26,6 +26,8 @@
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo-rails": "^8.0.13"
+    "@hotwired/turbo-rails": "^8.0.13",
+    "notyf": "^3.10.0",
+    "toastr": "^2.1.4"
   }
 }

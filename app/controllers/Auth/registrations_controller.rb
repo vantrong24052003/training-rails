@@ -15,6 +15,7 @@ class Auth::RegistrationsController < Devise::RegistrationsController
     super
   end
 
+
   private
 
   def configure_sign_up_params

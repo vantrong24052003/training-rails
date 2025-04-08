@@ -1,6 +1,7 @@
 class Admin::BaseController < ApplicationController
-  before_action :authenticate_user!
-  before_action :authorize_admin
+  # redirect new_user_session_path => đây là trang login được tạo ra từ devise_for :users
+  before_action :authenticate_user! # chưa đăng nhập mà vào trang admin thì sẽ bị redirect tới trang login
+  before_action :authorize_admin # đã đăng nhập thì kiểm tra xem có phải là admin không
 
   private
 

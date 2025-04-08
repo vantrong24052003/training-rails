@@ -2,6 +2,7 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_post
   before_action :set_comment, only: [ :show, :edit, :update, :destroy ]
+  before_action :check_comment_owner, only: [ :edit, :update, :destroy ]
 
   def show
     # This action renders the show view for a specific comment
@@ -20,11 +21,13 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    authorize @comment
+    # @comment is set by before_action
+    # Owner check is performed by before_action
   end
 
   def update
-    authorize @comment
+    # @comment is set by before_action
+    # Owner check is performed by before_action
 
     if @comment.update(comment_params)
       redirect_to post_path(@post), notice: "Comment was successfully updated."
@@ -34,7 +37,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    authorize @comment
+    # @comment is set by before_action
+    # Owner check is performed by before_action
+
     @comment.destroy
     redirect_to post_path(@post), notice: "Comment was successfully deleted."
   end
@@ -43,14 +48,16 @@ class CommentsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:post_id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to "/404", status: :not_found
   end
 
   def set_comment
     @comment = @post.comments.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to "/404", status: :not_found
+  end
+
+  def check_comment_owner
+    unless current_user == @comment.user || current_user.has_role?(:admin)
+      redirect_to post_path(@post), alert: "You are not authorized to perform this action."
+    end
   end
 
   def comment_params

@@ -28,7 +28,7 @@
                     .text-sm.text-gray-500 = category.posts.count
                   td.px-6.py-4.whitespace-nowrap.text-right.text-sm.font-medium
                     = link_to "Edit", edit_admin_category_path(category), class: "text-indigo-600 hover:text-indigo-900 mr-4"
-                    = link_to "Delete", admin_category_path(category), method: :delete, data: { confirm: 'Are you sure? This will delete the category and all associated posts.' }, class: "text-red-600 hover:text-red-900"
+                    = button_to "Delete", admin_category_path(category), method: :delete, class: "inline-block text-red-600 hover:text-red-900"
 
   - if @categories.empty?
     .text-center.py-12

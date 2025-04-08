@@ -1,4 +1,6 @@
 class Admin::CategoriesController < Admin::BaseController
+  before_action :set_category, only: [ :edit, :update, :destroy ]
+
   def index
     @categories = Category.all
   end
@@ -8,12 +10,15 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def create
-    @category = Category.new(category_params)
-
-    if @category.save
-      redirect_to admin_categories_path, notice: "Category was successfully created."
-    else
-      render :new
+    begin
+      if  Category.create(category_params)
+        # flash[:notice] = "User created successfully" hoặc  notice: "Category was successfully created."
+        redirect_to admin_categories_path, notice: "Category was successfully created."
+      else
+        redirect_to new_admin_category_path, alert: @category.errors.full_messages.join(", ")
+      end
+    rescue => e
+      redirect_to new_admin_category_path, alert: e.message
     end
   end
 
@@ -21,19 +26,26 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def update
-    if @category.update(category_params)
-      redirect_to admin_categories_path, notice: "Category was successfully updated."
-    else
-      render :edit
+    begin
+      if @category.update(category_params)
+        redirect_to admin_categories_path, notice: "Category was successfully updated."
+      else
+        redirect_to edit_admin_category_path(@category), alert: @category.errors.full_messages.join(", ")
+      end
+    rescue => e
+      redirect_to edit_admin_category_path(@category), alert: e.message
     end
   end
 
   def destroy
-    if @category.posts.any?
-      redirect_to admin_categories_path, alert: "Cannot delete category with associated posts."
-    else
-      @category.destroy
-      redirect_to admin_categories_path, notice: "Category was successfully deleted."
+    begin
+      if @category.destroy
+        redirect_to admin_categories_path, notice: "Category was successfully deleted."
+      else
+        redirect_to admin_categories_path, alert: "Category could not be deleted."
+      end
+    rescue => e
+      redirect_to admin_categories_path, alert: e.message
     end
   end
 

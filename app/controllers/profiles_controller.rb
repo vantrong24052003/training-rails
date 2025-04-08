@@ -13,10 +13,14 @@ class ProfilesController < ApplicationController
   def update
     @user = current_user
 
-    if @user.update(profile_params)
-      redirect_to profile_path, notice: "Profile updated successfully."
-    else
-      render :edit
+    begin
+      if @user.update(profile_params)
+        redirect_to profile_path, notice: "Profile updated successfully."
+      else
+        render :edit, alert: "Failed to update profile: #{@user.errors.full_messages.join(', ')}"
+      end
+    rescue => e
+      redirect_to edit_profile_path, alert: "An error occurred while updating your profile: #{e.message}"
     end
   end
 
