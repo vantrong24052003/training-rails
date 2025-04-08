@@ -6,7 +6,7 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     super do |resource|
-      resource.add_role(:users) if resource.persisted?
+      resource.add_role(:user) if resource.persisted?
       # binding.pry
     end
   end
@@ -16,4 +16,8 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   end
 
   private
+
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [ :username ])
+  end
 end

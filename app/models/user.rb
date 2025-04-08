@@ -5,6 +5,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-         validates :email, presence: true, uniqueness: true,
-                  format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
+  # Associations
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
+
+  # Validations
+  validates :email, presence: true, uniqueness: true,
+           format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 end

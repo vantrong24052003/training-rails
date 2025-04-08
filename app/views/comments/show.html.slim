@@ -1,0 +1,33 @@
+.max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8.py-8
+  .max-w-3xl.mx-auto
+    = link_to post_path(@post), class: "inline-flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-500 mb-4" do
+      svg.-ml-1.mr-1.h-5.w-5.text-indigo-500 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
+        path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"
+      | Back to post
+
+    .bg-white.rounded-lg.shadow-md.overflow-hidden
+      .p-6
+        .flex.items-start
+          .flex-shrink-0
+            - if @comment.user.respond_to?(:avatar) && @comment.user.avatar.present?
+              img.h-10.w-10.rounded-full src="#{@comment.user.avatar}" alt="#{@comment.user.email}"
+            - else
+              .h-10.w-10.rounded-full.bg-indigo-100.flex.items-center.justify-center
+                span.text-indigo-800.font-medium = @comment.user.email[0].upcase
+
+          .ml-4.flex-1
+            .flex.items-center.justify-between
+              .text-sm.font-medium.text-gray-900
+                = @comment.user.email.split('@').first
+              .text-xs.text-gray-500
+                = time_ago_in_words(@comment.created_at) + " ago"
+
+            .mt-2.text-sm.text-gray-700
+              = simple_format @comment.content
+
+            - if user_signed_in? && (current_user == @comment.user || current_user.has_role?(:admin))
+              .mt-4.flex.space-x-2
+                = link_to edit_post_comment_path(@post, @comment), class: "inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-xs font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do
+                  | Edit
+                = link_to post_comment_path(@post, @comment), method: :delete, data: { confirm: 'Are you sure?' }, class: "inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-xs font-medium text-red-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" do
+                  | Delete
