@@ -44,10 +44,11 @@ class ApplicationController < ActionController::Base
   def handle_unauthorized(e)
     respond_to do |format|
       format.html do
-        flash[:alert] = "Bạn không có quyền thực hiện hành động này"
+        flash[:error] = "Bạn không có quyền thực hiện hành động này"
         redirect_to root_path
       end
       format.json { render json: { error: "Unauthorized" }, status: :forbidden }
     end
   end
+
 end

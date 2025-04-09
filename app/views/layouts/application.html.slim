@@ -24,14 +24,6 @@ html
     main
       = yield
 
-      - if flash[:notice]
-        script
-          | toastr.success("#{j flash[:notice]}")
-      - if flash[:alert]
-        script
-          | toastr.error("#{j flash[:alert]}")
-      - if flash[:warning]
-        script
-          | toastr.warning("#{j flash[:warning]}")
+    = render 'shared/flash'
 
     = render 'shared/footer'

@@ -1,6 +1,5 @@
 class Admin::PostsController < Admin::BaseController
   before_action :set_post, only: [ :show, :edit, :update, :destroy ]
-paginates_per 25
   def index
     @posts = Post.order(created_at: :desc)
   end

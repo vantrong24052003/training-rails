@@ -18,7 +18,7 @@
             = @post.created_at.strftime("%B %d, %Y")
         div
           span.px-2.inline-flex.text-xs.leading-5.font-semibold.rounded-full class="#{@post.published ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}"
-            = @post.published ? "Published" : "Draft"
+            = @post.published ? "Published" : "Private"
 
       .border-t.border-gray-200
         .px-4.py-5.sm:p-6

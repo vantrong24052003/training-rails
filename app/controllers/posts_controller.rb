@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [ :show, :edit, :update, :destroy ]
   before_action :authenticate_user!, except: [ :index, :show ]
-
+ before_action :authorize_post!, only: [ :edit, :update, :destroy ]
   def index
     @posts = Post.includes(:category, :user).published.order(created_at: :desc)
       @posts.limit(1).offset(2)
@@ -18,28 +18,30 @@ class PostsController < ApplicationController
     @categories = Category.all
   end
 
-  def create
+def create
+  begin
     @post = current_user.posts.build(post_params)
 
     if @post.save
       redirect_to @post, notice: "Post was successfully created."
     else
       @categories = Category.all
+      flash.now[:alert] = @post.errors.full_messages.join(", ")
       render :new
     end
-  rescue ActiveRecord::RecordInvalid => e
-    redirect_to new_post_path, alert: "Post creation failed: #{e.message}"
-  rescue => e
-    redirect_to new_post_path, alert: "An unexpected error occurred: #{e.message}"
+  rescue
+    @categories = Category.all
+    flash.now[:alert] = "Something went wrong. Please try again."
+    render :new
   end
+end
+
 
   def edit
-    authorize @post
     @categories = Category.all
   end
 
   def update
-    authorize @post
     if @post.update(post_params)
       redirect_to @post, notice: "Post was successfully updated."
     else
@@ -53,7 +55,6 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    authorize @post
     @post.destroy
     redirect_to posts_path, notice: "Post was successfully deleted."
   rescue => e
