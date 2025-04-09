@@ -19,6 +19,9 @@ module RailsVite
     # Use custom error pages
     config.exceptions_app = self.routes
 
+    # Set the default locale to Vietnamese
+    config.i18n.default_locale = :vi
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

@@ -1,8 +1,8 @@
 class Auth::SessionsController < Devise::SessionsController
   def create
-    self.resource = warden.authenticate(auth_options)
+    self.resource = warden.authenticate(auth_options) # warden.authenticate sẽ kiểm tra email + password đúng không.-> true trả về resource , sai trả về nil
 
-    if resource&.confirmed?
+    if resource&.confirmed? # Devise cung cấp
       # Nếu đã xác nhận email → đăng nhập bình thường
       set_flash_message!(:notice, :signed_in)
       sign_in(resource_name, resource)
@@ -10,7 +10,7 @@ class Auth::SessionsController < Devise::SessionsController
       respond_with resource, location: after_sign_in_path_for(resource)
     else
       # Nếu chưa xác nhận → từ chối đăng nhập
-      flash[:alert] = "Vui lòng xác nhận email trước khi đăng nhập."
+      flash[:alert] = "Đăng nhập thất bại! Vui lòng xác nhận email trước khi đăng nhập."
       redirect_to new_session_path(resource_name)
     end
   end
