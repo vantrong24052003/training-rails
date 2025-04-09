@@ -1,0 +1,42 @@
+- content_for :title, "Welcome to Rails Vite"
+
+.text-center
+  h1 style="margin-bottom: 24px;" Welcome to Rails Vite!
+
+  p.text-center style="margin-bottom: 12px;"
+    img src="https://w7.pngwing.com/pngs/782/228/png-transparent-ruby-on-rails-rubygems-amazon-dynamodb-ruby-text-logo-ruby-thumbnail.png" alt="Welcome" style="max-width: 200px; margin: 0 auto 24px auto; display: block;"
+
+  h2 style="color: #4338ca; margin-bottom: 16px;" Thank you for joining us, #{@user.email.split('@').first}!
+
+  p
+    | We're thrilled to have you as a member of our community.
+    | Your account has been successfully created and is ready to use.
+
+  p
+    | With your new account, you can now:
+
+  ul style="text-align: left; margin: 20px 0; padding-left: 20px;"
+    li style="margin-bottom: 8px;" Create and share amazing blog posts
+    li style="margin-bottom: 8px;" Engage with other community members through comments
+    li style="margin-bottom: 8px;" Discover interesting content from other users
+    li style="margin-bottom: 8px;" Manage your personal profile
+
+  a.button href="#{root_url}" style="background: linear-gradient(135deg, #4f46e5, #6366f1); color: white; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: bold; display: inline-block;" Get Started Now
+
+  .divider
+
+  p style="margin-top: 24px;"
+    | If you have any questions or need assistance, please don't hesitate to reach out to our support team.
+
+  p
+    | Best regards,
+    br
+    strong The Rails Vite Team
+
+  .social-icons style="margin-top: 24px;"
+    a href="#" style="display: inline-block; margin: 0 8px;"
+      img src="https://img.icons8.com/fluency/48/000000/facebook-new.png" width="24" alt="Facebook"
+    a href="#" style="display: inline-block; margin: 0 8px;"
+      img src="https://img.icons8.com/fluency/48/000000/twitter.png" width="24" alt="Twitter"
+    a href="#" style="display: inline-block; margin: 0 8px;"
+      img src="https://img.icons8.com/fluency/48/000000/instagram-new.png" width="24" alt="Instagram"
