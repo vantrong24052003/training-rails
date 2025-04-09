@@ -31,7 +31,7 @@ header.bg-gray-800.shadow-md.sticky.top-0.z-50 data-controller="navigation auth"
               .px-4.py-3.border-b.border-gray-100
                 .text-sm.font-medium.text-gray-900 = current_user.email
                 .text-xs.text-gray-500 Logged in
-              = link_to "Your Profile", "#", class: "block px-4 py-2 text-md text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out", role: "menuitem"
+              = link_to "Your Profile", profile_path, class: "block px-4 py-2 text-md text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out", role: "menuitem"
               = link_to "Settings", "#", class: "block px-4 py-2 text-md text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out", role: "menuitem"
               = link_to 'Logout', destroy_user_session_path, class: "block px-4 py-2 text-md text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out", role: "menuitem", data: { action: "navigation#logout", turbo_method: :delete, turbo_confirm: 'Are you sure?' }
 

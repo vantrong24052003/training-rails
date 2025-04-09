@@ -68,3 +68,5 @@ gem "devise", "~> 4.9"
 gem "erb2slim"
 gem 'rolify'
 gem 'cancancan', '3.5'
+gem 'sidekiq', '7.2'
+gem 'redis','5.0.6'

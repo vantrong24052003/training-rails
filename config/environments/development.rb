@@ -14,6 +14,9 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
+  config.active_job.queue_adapter = :sidekiq
+
+
   # Uncomment this line to test error pages in development
   # config.consider_all_requests_local = false
 
