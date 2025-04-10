@@ -1,29 +1,41 @@
-class Auth::ConfirmationsController < ApplicationController
-  def confirm_email
-    token = params[:token]
+class Auth::ConfirmationsController < Devise::ConfirmationsController
+  def new
+    super
+  end
 
-    begin
-      payload = JwtHelper.decode_token(token, Rails.application.credentials.dig(:jwt_secret_key))
+def create
+  super
+  # self.resource = resource_class.send_confirmation_instructions(resource_params)
 
-      if payload["purpose"] == "email_confirmation"
-        user = User.find_by(id: payload["sub"], email: payload["email"])
+  # if resource.nil?
+  #   flash[:alert] = "❌ Email đã được xác nhận, vui lòng đăng nhập."
+  # elsif resource.errors.empty?
+  #   flash[:notice] = "📨 Resend email successfully!"
+  # else
+  #   flash[:alert] = "❌ " + resource.errors.full_messages.join(', ')
+  # end
 
-        if user
-          user.update(confirmed_at: Time.current)
-          flash[:notice] = "Email xác nhận thành công!"
-        else
-          flash[:alert] = "Không tìm thấy người dùng."
-        end
-      else
-        flash[:alert] = "Token không hợp lệ."
-      end
-    rescue JWT::ExpiredSignature
-      flash[:alert] = "Token đã hết hạn."
-    rescue => e
-      Rails.logger.error "Email confirmation failed: #{e.message}"
-      flash[:alert] = "Xác nhận thất bại."
+  # render :new
+end
+
+
+def show
+  self.resource = resource_class.confirm_by_token(params[:confirmation_token])
+
+  message =
+    if resource.errors.empty?
+      resource.confirmed? ? "confirm_success" : "already_confirmed"
+    else
+      "invalid_token"
     end
 
-    redirect_to root_path
+  render :show, locals: { resource: resource, message: message }
+end
+
+
+  protected
+
+  def after_confirmation_path_for(resource_name, resource)
+    signed_in_root_path(resource)
   end
 end

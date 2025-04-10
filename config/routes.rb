@@ -2,6 +2,7 @@
     devise_for :users, controllers: {
       registrations: "auth/registrations",
       sessions: "auth/sessions",
+      confirmations: "auth/confirmations"
     }
 
   # Root route
@@ -30,9 +31,6 @@
       end
     end
   end
-
-  # Custom routes
-  get '/confirm_email', to: 'auth/confirmations#confirm_email'
 
   match "/404", to: "errors#not_found", via: :all
 end

@@ -1,8 +1,45 @@
-p
-  | Welcome 
-  = @email
-  | !
-p
-  | You can confirm your account email through the link below:
-p
-  = link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token)
+.email-container style="max-width: 600px; margin: 0 auto; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #333;"
+  .header style="text-align: center; padding: 20px; background-color: #4267B2;"
+    h1 style="color: white; margin: 0;"
+      | <!-- Logo SVG icon -->
+      svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 5px; fill: white;"
+        path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 8c0 .557-.447 1.008-1 1.008s-1-.45-1-1.008c0-.557.447-1.008 1-1.008s1 .452 1 1.008zm0 2h-2v6h2v-6zm3 0h-2v6h2v-2.861c0-1.722 2.002-1.881 2.002 0v2.861h1.998v-3.359c0-3.284-3.128-3.164-4-1.548v-1.093z"
+      | YourSocialNetwork
+
+  .content style="padding: 20px; background-color: #fff; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"
+    h2 style="color: #4267B2;"
+      | &#128075; Welcome to our Social Community!
+
+    p style="font-size: 16px; line-height: 1.5;"
+      | &#128512; Hi
+      strong= @email
+      | , we're excited to have you join our social network!
+
+    p style="font-size: 16px; line-height: 1.5;"
+      | &#127873; To start connecting with friends, sharing moments, and discovering new content, please confirm your account by clicking the button below:
+
+    .button-container style="text-align: center; margin: 25px 0;"
+      = link_to confirmation_url(@resource, confirmation_token: @token), style: "display: inline-block; padding: 12px 24px; background-color: #4267B2; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;" do
+        | <!-- Checkmark SVG -->
+        svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 8px; fill: white;"
+          path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
+        | Confirm My Account
+
+    p style="font-size: 14px; line-height: 1.5; color: #666;"
+      | &#9888; If the button doesn't work, copy and paste the following link into your browser:
+      br
+      = confirmation_url(@resource, confirmation_token: @token)
+
+    p style="font-size: 14px; line-height: 1.5;"
+      | &#128336; This link will expire in 24 hours. If you didn't create this account, please ignore this email.
+
+  .footer style="text-align: center; padding: 15px; font-size: 12px; color: #777;"
+    p
+      | &#169; #{Time.now.year} YourSocialNetwork. All rights reserved.
+    p
+      | &#10067; Questions? Contact our support team at
+      a href="mailto:support@yoursocialnetwork.com" style="color: #4267B2; text-decoration: none;"
+        | <!-- Email SVG -->
+        svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 3px; fill: #4267B2;"
+          path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"
+        | support@yoursocialnetwork.com
