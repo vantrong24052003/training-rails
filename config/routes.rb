@@ -1,13 +1,13 @@
-Rails.application.routes.draw do
-  devise_for :users, controllers: {
-    registrations: "auth/registrations",
-    sessions: "auth/sessions"
-  }
+  Rails.application.routes.draw do
+    devise_for :users, controllers: {
+      registrations: "auth/registrations",
+      sessions: "auth/sessions",
+    }
 
   # Root route
   root "posts#index"
 
-  # User-facing routes
+  # Resources
   resources :posts do
     resources :comments
   end
@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resource :profile
 
+  # namespace
   namespace :admin do
     get "/", to: "dashboard#index", as: :dashboard
 
@@ -29,6 +30,9 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  # Custom routes
+  get '/confirm_email', to: 'auth/confirmations#confirm_email'
 
   match "/404", to: "errors#not_found", via: :all
 end

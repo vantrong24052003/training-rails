@@ -1,0 +1,15 @@
+.container.mx-auto.mt-10.max-w-md.text-center
+  .bg-white.shadow-md.rounded.p-6
+
+    - if flash[:notice]
+      .bg-green-100.text-green-800.font-medium.p-4.rounded.mb-4= flash[:notice]
+
+    - if flash[:alert]
+      .bg-red-100.text-red-800.font-medium.p-4.rounded.mb-4= flash[:alert]
+
+    h1.text-2xl.font-bold.mb-4 Xác nhận Email
+
+    p.text-gray-600.mb-6
+      | Bạn có thể quay về trang chủ và bắt đầu sử dụng dịch vụ.
+
+    = link_to "Về trang chủ", root_path, class: "inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"

@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  include Pagination
   # Bảo vệ khỏi CSRF attacks (Cross-Site Request Forgery)
   #  Với :null_session: nếu request sai token, Rails sẽ reset session về nil → dùng cho API (đăng nhập không qua form HTML).
   protect_from_forgery with: :null_session

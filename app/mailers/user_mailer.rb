@@ -1,7 +1,10 @@
 class UserMailer < ApplicationMailer
   def welcome_email
-    @user = params[:user] # Nhận data từ bên kia gửi qua
-    mail(to: @user.email, subject: "Welcome!")
+    @user = params[:user]
+    @token = params[:token]
+    @confirm_link = "#{root_url}confirm_email?token=#{@token}"
+
+    mail(to: @user.email, subject: 'Welcome! Confirm your email')
   end
 
   def reset_password_email
