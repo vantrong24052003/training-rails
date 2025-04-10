@@ -20,11 +20,6 @@
                   = f.email_field :email, disabled: true, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md bg-gray-50"
                 p.mt-1.text-xs.text-gray-500 Your email address cannot be changed. Contact an administrator if you need to update it.
 
-              .sm:col-span-6
-                = f.label :username, class: "block text-sm font-medium text-gray-700"
-                .mt-1
-                  = f.text_field :username, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-
               - if @user.respond_to?(:avatar)
                 .sm:col-span-6
                   = f.label :avatar, class: "block text-sm font-medium text-gray-700"

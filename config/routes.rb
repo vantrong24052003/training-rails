@@ -2,7 +2,8 @@
     devise_for :users, controllers: {
       registrations: "auth/registrations",
       sessions: "auth/sessions",
-      confirmations: "auth/confirmations"
+      confirmations: "auth/confirmations",
+      passwords: "auth/passwords"
     }
 
   # Root route
