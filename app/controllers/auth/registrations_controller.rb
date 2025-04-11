@@ -3,12 +3,9 @@ class Auth::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   # Trong Devise::RegistrationsController, sau khi user được tạo thành công (resource.persisted?), Devise sẽ:
-
-# Tạo confirmation_token
-
-# Lưu confirmed_at: nil
-
-# Gửi email xác nhận qua Devise::Mailer.confirmation_instructions
+  # Tạo confirmation_token
+  # Lưu confirmed_at: nil
+  # Gửi email xác nhận qua Devise::Mailer.confirmation_instructions
   def create
     super do |resource|
       if resource.persisted?

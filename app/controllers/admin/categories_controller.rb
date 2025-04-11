@@ -10,42 +10,32 @@ class Admin::CategoriesController < Admin::BaseController
   end
 
   def create
-    begin
-      if  Category.create(category_params)
-        # flash[:notice] = "User created successfully" hoặc  notice: "Category was successfully created."
-        redirect_to admin_categories_path, notice: "Category was successfully created."
-      else
-        redirect_to new_admin_category_path, alert: @category.errors.full_messages.join(", ")
-      end
-    rescue => e
-      redirect_to new_admin_category_path, alert: e.message
+    @category = Category.new(category_params)
+
+    if @category.save
+      redirect_to admin_categories_path, notice: "Category was successfully created."
+    else
+      flash.now[:alert] = @category.errors.full_messages.join(", ")
+      render :new
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
-    begin
-      if @category.update(category_params)
-        redirect_to admin_categories_path, notice: "Category was successfully updated."
-      else
-        redirect_to edit_admin_category_path(@category), alert: @category.errors.full_messages.join(", ")
-      end
-    rescue => e
-      redirect_to edit_admin_category_path(@category), alert: e.message
+    if @category.update(category_params)
+      redirect_to admin_categories_path, notice: "Category was successfully updated."
+    else
+      flash.now[:alert] = @category.errors.full_messages.join(", ")
+      render :edit
     end
   end
 
   def destroy
-    begin
-      if @category.destroy
-        redirect_to admin_categories_path, notice: "Category was successfully deleted."
-      else
-        redirect_to admin_categories_path, alert: "Category could not be deleted."
-      end
-    rescue => e
-      redirect_to admin_categories_path, alert: e.message
+    if @category.destroy
+      redirect_to admin_categories_path, notice: "Category was successfully deleted."
+    else
+      redirect_to admin_categories_path, alert: "Category could not be deleted."
     end
   end
 

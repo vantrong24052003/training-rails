@@ -1,17 +1,15 @@
 class Admin::PostsController < Admin::BaseController
   before_action :set_post, only: [ :show, :edit, :update, :destroy ]
+  before_action :load_dependencies, only: [ :new, :create, :edit, :update ]
+
   def index
     @posts = Post.order(created_at: :desc)
   end
 
-  def show
-    # binding.pry
-  end
+  def show; end
 
   def new
     @post = Post.new
-    @categories = Category.all
-    @users = User.all
   end
 
   def create
@@ -20,58 +18,39 @@ class Admin::PostsController < Admin::BaseController
     if @post.save
       redirect_to admin_posts_path, notice: "Post was successfully created."
     else
-      @categories = Category.all
-      @users = User.all
+      flash.now[:alert] = @post.errors.full_messages.join(", ")
       render :new
     end
-  rescue ActiveRecord::RecordInvalid => e
-    @categories = Category.all
-    @users = User.all
-    flash.now[:alert] = "Post creation failed: #{e.message}"
-    render :new
-  rescue => e
-    @categories = Category.all
-    @users = User.all
-    flash.now[:alert] = "An unexpected error occurred: #{e.message}"
-    render :new
   end
 
-  def edit
-    @categories = Category.all
-    @users = User.all
-  end
+  def edit; end
 
   def update
     if @post.update(post_params)
       redirect_to admin_posts_path, notice: "Post was successfully updated."
     else
-      @categories = Category.all
-      @users = User.all
+      flash.now[:alert] = @post.errors.full_messages.join(", ")
       render :edit
     end
-  rescue ActiveRecord::RecordInvalid => e
-    @categories = Category.all
-    @users = User.all
-    flash.now[:alert] = "Post update failed: #{e.message}"
-    render :edit
-  rescue => e
-    @categories = Category.all
-    @users = User.all
-    flash.now[:alert] = "An unexpected error occurred: #{e.message}"
-    render :edit
   end
 
   def destroy
-    @post.destroy
-    redirect_to admin_posts_path, notice: "Post was successfully deleted."
-  rescue => e
-    redirect_to admin_posts_path, alert: "An error occurred while deleting the post: #{e.message}"
+    if @post.destroy
+      redirect_to admin_posts_path, notice: "Post was successfully deleted."
+    else
+      redirect_to admin_posts_path, alert: "Failed to delete post."
+    end
   end
 
   private
 
   def set_post
     @post = Post.find(params[:id])
+  end
+
+  def load_dependencies
+    @categories = Category.all
+    @users = User.all
   end
 
   def post_params

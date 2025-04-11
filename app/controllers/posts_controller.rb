@@ -20,39 +20,31 @@ class PostsController < ApplicationController
   end
 
   def create
-    begin
-      @post = current_user.posts.build(post_params)
+  @post = current_user.posts.build(post_params)
 
-      if @post.save
-        redirect_to @post, notice: "Post was successfully created."
-      else
-        @categories = Category.all
-        flash.now[:alert] = @post.errors.full_messages.join(", ")
-        render :new
-      end
-    rescue
-      @categories = Category.all
-      flash.now[:alert] = "Something went wrong. Please try again."
-      render :new
-    end
+  if @post.save!
+    redirect_to @post, notice: "Post was successfully created."
+  else
+    @categories = Category.all
+    flash.now[:alert] = @post.errors.full_messages.join(", ")
+    render :new
   end
+  end
+
 
   def edit
     @categories = Category.all
   end
 
   def update
-    if @post.update(post_params)
-      redirect_to @post, notice: "Post was successfully updated."
-    else
-      @categories = Category.all
-      render :edit
-    end
-  rescue ActiveRecord::RecordInvalid => e
-    redirect_to edit_post_path(@post), alert: "Post update failed: #{e.message}"
-  rescue => e
-    redirect_to edit_post_path(@post), alert: "An unexpected error occurred: #{e.message}"
+  if @post.update(post_params)
+    redirect_to @post, notice: "Post was successfully updated."
+  else
+    @categories = Category.all
+    render :edit
   end
+  end
+
 
   def destroy
     @post.destroy
@@ -76,9 +68,6 @@ def report
 
   redirect_to @post, notice: "Bài viết đã được report. Chúng tôi sẽ xem xét sớm!"
 end
-
-
-
 
   private
 

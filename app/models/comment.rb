@@ -4,7 +4,7 @@ class Comment < ApplicationRecord
   belongs_to :post
 
   # Validations
-  validates :content, presence: true
+  validates :content, presence: { message: "nội dung không được để trống" }
 
   scope :recent, -> { order(created_at: :desc) }
 end

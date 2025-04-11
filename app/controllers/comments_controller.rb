@@ -5,15 +5,13 @@ class CommentsController < ApplicationController
   before_action :check_comment_owner, only: [ :edit, :update, :destroy ]
 
   def show
-    # This action renders the show view for a specific comment
-    # The @post and @comment variables are already set by the before_action callbacks
   end
 
   def create
     @comment = @post.comments.build(comment_params)
     @comment.user = current_user
 
-    if @comment.save
+    if @comment.save!
       redirect_to post_path(@post), notice: "Comment was successfully added."
     else
       redirect_to post_path(@post), alert: "Failed to add comment."
@@ -21,14 +19,9 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    # @comment is set by before_action
-    # Owner check is performed by before_action
   end
 
   def update
-    # @comment is set by before_action
-    # Owner check is performed by before_action
-
     if @comment.update(comment_params)
       redirect_to post_path(@post), notice: "Comment was successfully updated."
     else
@@ -37,9 +30,6 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    # @comment is set by before_action
-    # Owner check is performed by before_action
-
     @comment.destroy
     redirect_to post_path(@post), notice: "Comment was successfully deleted."
   end
