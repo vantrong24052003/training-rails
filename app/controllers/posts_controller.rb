@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_post, only: [ :show, :edit, :update, :destroy, :report ]
   before_action :authenticate_user!, except: [ :index, :show ]
- before_action :authorize_post!, only: [ :edit, :update, :destroy ]
+  before_action :authorize_post!, only: [ :edit, :update, :destroy ]
+
   def index
     @posts = Post.includes(:category, :user).published.order(created_at: :desc)
       @posts.limit(1).offset(2)
@@ -18,24 +19,23 @@ class PostsController < ApplicationController
     @categories = Category.all
   end
 
-def create
-  begin
-    @post = current_user.posts.build(post_params)
+  def create
+    begin
+      @post = current_user.posts.build(post_params)
 
-    if @post.save
-      redirect_to @post, notice: "Post was successfully created."
-    else
+      if @post.save
+        redirect_to @post, notice: "Post was successfully created."
+      else
+        @categories = Category.all
+        flash.now[:alert] = @post.errors.full_messages.join(", ")
+        render :new
+      end
+    rescue
       @categories = Category.all
-      flash.now[:alert] = @post.errors.full_messages.join(", ")
+      flash.now[:alert] = "Something went wrong. Please try again."
       render :new
     end
-  rescue
-    @categories = Category.all
-    flash.now[:alert] = "Something went wrong. Please try again."
-    render :new
   end
-end
-
 
   def edit
     @categories = Category.all
@@ -60,6 +60,25 @@ end
   rescue => e
     redirect_to posts_path, alert: "An error occurred while deleting the post: #{e.message}"
   end
+
+def report
+  @post = Post.find(params[:id])
+  @reporter = current_user
+  @author = @post.user
+
+  # Gửi email cho tác giả bài viết (người bị report)
+  UserMailer.with(user: @author, post: @post, reporter: @reporter)
+            .reported_notification_email.deliver_later
+
+  # Gửi email cho admin
+  UserMailer.with(user: @author, post: @post, reporter: @reporter)
+            .admin_report_notification_email.deliver_later
+
+  redirect_to @post, notice: "Bài viết đã được report. Chúng tôi sẽ xem xét sớm!"
+end
+
+
+
 
   private
 

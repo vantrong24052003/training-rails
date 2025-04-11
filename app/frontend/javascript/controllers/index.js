@@ -7,7 +7,9 @@ import { application } from "./application"
 import HelloController from "./hello_controller"
 import NavigationController from "./navigation_controller"
 import AuthController from "./auth_controller"
+import PostController from "./post_controller"
 
 application.register("hello", HelloController)
 application.register("navigation", NavigationController)
 application.register("auth", AuthController)
+application.register("post", PostController)

@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
     # binding.pry
     if resource.has_role?(:admin)
       admin_posts_path
-    else
+    else  
       root_path
     end
   end

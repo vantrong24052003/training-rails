@@ -4,7 +4,6 @@ export default class extends Controller {
   static targets = ["dropdownMenu", "dropdownButton", "mobileMenu", "mobileButton"]
 
   connect() {
-    // Close dropdowns when clicking outside
     document.addEventListener('click', this.closeDropdownOnClickOutside.bind(this))
   }
 

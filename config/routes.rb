@@ -1,4 +1,4 @@
-  Rails.application.routes.draw do
+Rails.application.routes.draw do
     devise_for :users, controllers: {
       registrations: "auth/registrations",
       sessions: "auth/sessions",
@@ -12,6 +12,10 @@
   # Resources
   resources :posts do
     resources :comments
+
+    member do
+      post :report
+    end
   end
 
   resources :categories
