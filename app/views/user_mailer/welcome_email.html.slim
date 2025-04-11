@@ -1,0 +1,49 @@
+- content_for :title, "Welcome to SocialNet 🎉"
+
+.text-center style="font-family: Arial, sans-serif; background-color: #f0f2f5; padding: 40px;"
+  .card style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; padding: 32px; box-shadow: 0 6px 20px rgba(0,0,0,0.1);"
+
+    img src="https://w7.pngwing.com/pngs/782/228/png-transparent-ruby-on-rails-rubygems-amazon-dynamodb-ruby-text-logo-ruby-thumbnail.png" alt="Logo" style="width: 100px; margin-bottom: 24px;"
+
+    h1 style="color: #1d4ed8; margin-bottom: 8px;" Hello, #{@user.email.split('@').first} 👋
+
+    p style="color: #374151; font-size: 16px; margin-bottom: 20px;"
+      | Welcome to
+      strong SocialNet
+      | – where ideas come alive and communities grow stronger. Your account has been created successfully, but you’ll need to verify your email to start exploring.
+
+    p style="color: #111827; font-weight: bold; margin-bottom: 12px;" What you can do with SocialNet:
+
+    ul style="text-align: left; color: #374151; padding-left: 24px; margin-bottom: 24px;"
+      li 🌟 Create and share amazing posts
+      li 💬 Comment and interact with other users
+      li 📸 Upload your media and stories
+      li 👥 Build your profile and grow your network
+
+    - if @confirm_link.present?
+      a href=@confirm_link style="display: inline-block; background: linear-gradient(135deg, #3b82f6, #6366f1); color: white; padding: 14px 28px; border-radius: 8px; font-weight: bold; text-decoration: none; margin-bottom: 24px;"
+        | ✅ Confirm Your Email
+
+      p style="font-size: 14px; color: #6b7280; margin-bottom: 24px;"
+        | Verifying your email helps keep our community safe and ensures full access to features.
+
+    a href=root_url style="display: inline-block; background-color: #10b981; color: white; padding: 12px 24px; border-radius: 6px; font-weight: bold; text-decoration: none;"
+      | 🌐 Visit SocialNet Now
+
+    hr style="margin: 32px 0;"
+
+    p style="font-size: 14px; color: #6b7280;"
+      | If you didn't sign up for SocialNet, you can safely ignore this email. For help, contact us anytime.
+
+    p style="margin-top: 16px;"
+      | Thanks again,
+      br
+      strong The SocialNet Team 💙
+
+    .social-icons style="margin-top: 24px;"
+      a href="#" style="margin: 0 8px;"
+        img src="https://img.icons8.com/fluency/48/facebook-new.png" width="24" alt="Facebook"
+      a href="#" style="margin: 0 8px;"
+        img src="https://img.icons8.com/fluency/48/twitter.png" width="24" alt="Twitter"
+      a href="#" style="margin: 0 8px;"
+        img src="https://img.icons8.com/fluency/48/instagram-new.png" width="24" alt="Instagram"

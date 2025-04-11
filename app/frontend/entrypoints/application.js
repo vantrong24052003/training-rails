@@ -14,16 +14,15 @@ console.log('Vite ⚡️ Rails')
 
 console.log('Visit the guide for more information: ', 'https://vite-ruby.netlify.app/guide/rails')
 
-// Example: Load Rails libraries in Vite.
-//
-// import * as Turbo from '@hotwired/turbo'
-// Turbo.start()
-//
-// import ActiveStorage from '@rails/activestorage'
-// ActiveStorage.start()
-//
-// // Import all channels.
-// const channels = import.meta.globEager('./**/*_channel.js')
+// Explicitly import and start Turbo for improved socket functionality
+import * as Turbo from '@hotwired/turbo'
+Turbo.start()
+
+// Import all channels for ActionCable
+const channelFiles = import.meta.glob('../javascript/channels/**/*_channel.js')
+Object.values(channelFiles).forEach(channelFile => {
+  channelFile()
+})
 
 // Example: Import a stylesheet in app/frontend/index.css
 // import '~/index.css'

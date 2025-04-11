@@ -4,10 +4,10 @@ checking for whether -std=gnu99 is accepted as CFLAGS... yes
 creating Makefile
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/rbs-3.9.2/ext/rbs_extension
-make DESTDIR\= sitearchdir\=./.gem.20250403-125034-sbace5 sitelibdir\=./.gem.20250403-125034-sbace5 clean
+make DESTDIR\= sitearchdir\=./.gem.20250409-5440-uhnvcu sitelibdir\=./.gem.20250409-5440-uhnvcu clean
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/rbs-3.9.2/ext/rbs_extension
-make DESTDIR\= sitearchdir\=./.gem.20250403-125034-sbace5 sitelibdir\=./.gem.20250403-125034-sbace5
+make DESTDIR\= sitearchdir\=./.gem.20250409-5440-uhnvcu sitelibdir\=./.gem.20250409-5440-uhnvcu
 compiling ./../../src/constants.c
 compiling ./../../src/ruby_objs.c
 compiling ./../../src/util/rbs_constant_pool.c
@@ -29,8 +29,8 @@ compiling unescape.c
 linking shared-object rbs_extension.so
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/rbs-3.9.2/ext/rbs_extension
-make DESTDIR\= sitearchdir\=./.gem.20250403-125034-sbace5 sitelibdir\=./.gem.20250403-125034-sbace5 install
-/usr/bin/install -m 0755 rbs_extension.so ./.gem.20250403-125034-sbace5
+make DESTDIR\= sitearchdir\=./.gem.20250409-5440-uhnvcu sitelibdir\=./.gem.20250409-5440-uhnvcu install
+/usr/bin/install -m 0755 rbs_extension.so ./.gem.20250409-5440-uhnvcu
 
 current directory: /home/vantrong/Documents/rails-vite/vendor/bundle/ruby/3.4.0/gems/rbs-3.9.2/ext/rbs_extension
-make DESTDIR\= sitearchdir\=./.gem.20250403-125034-sbace5 sitelibdir\=./.gem.20250403-125034-sbace5 clean
+make DESTDIR\= sitearchdir\=./.gem.20250409-5440-uhnvcu sitelibdir\=./.gem.20250409-5440-uhnvcu clean

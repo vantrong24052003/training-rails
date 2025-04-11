@@ -1,0 +1,107 @@
+.max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8.py-8
+  = link_to admin_users_path, class: "inline-flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-500 mb-6" do
+    svg.-ml-1.mr-1.h-5.w-5.text-indigo-500 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+      path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"
+    | Back to users
+
+  .bg-white.shadow.overflow-hidden.sm:rounded-lg
+    .px-4.py-5.sm:px-6.flex.justify-between.items-start
+      div
+        h3.text-lg.leading-6.font-medium.text-gray-900
+          | User Details
+        p.max-w-2xl.text-sm.text-gray-500.mt-1
+          | Personal details and account information.
+      .flex.space-x-3
+        = link_to edit_admin_user_path(@user), class: "inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" do
+          svg.-ml-0.5.mr-2.h-4.w-4.text-gray-400 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+            path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"
+          | Edit User
+
+    .border-t.border-gray-200
+      dl
+        .bg-gray-50.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+          dt.text-sm.font-medium.text-gray-500
+            | Full name
+          dd.mt-1.text-sm.text-gray-900.sm:mt-0.sm:col-span-2
+            - if @user.respond_to?(:name) && @user.name.present?
+              = @user.name
+            - else
+              span.text-gray-500 Not provided
+
+        .bg-white.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+          dt.text-sm.font-medium.text-gray-500
+            | Email address
+          dd.mt-1.text-sm.text-gray-900.sm:mt-0.sm:col-span-2
+            = @user.email
+
+        .bg-gray-50.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+          dt.text-sm.font-medium.text-gray-500
+            | Username
+          dd.mt-1.text-sm.text-gray-900.sm:mt-0.sm:col-span-2
+            - if @user.respond_to?(:username) && @user.username.present?
+              = @user.username
+            - else
+              span.text-gray-500 Not set
+
+        .bg-white.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+          dt.text-sm.font-medium.text-gray-500
+            | Roles
+          dd.mt-1.text-sm.text-gray-900.sm:mt-0.sm:col-span-2.flex.space-x-2
+            - @user.roles.each do |role|
+              span.px-2.py-1.inline-flex.text-xs.leading-5.font-semibold.rounded-full.bg-green-100.text-green-800
+                = role.name
+
+        .bg-gray-50.px-4.py-5.sm:grid.sm:grid-cols-3.sm:gap-4.sm:px-6
+          dt.text-sm.font-medium.text-gray-500
+            | Joined Date
+          dd.mt-1.text-sm.text-gray-900.sm:mt-0.sm:col-span-2
+            = @user.created_at.strftime("%B %d, %Y at %I:%M %p")
+
+  / User posts section
+  .mt-8
+    h2.text-xl.font-bold.text-gray-900.mb-4 Posts
+
+    - if @posts.any?
+      .bg-white.shadow.overflow-hidden.sm:rounded-lg
+        ul.divide-y.divide-gray-200
+          - @posts.each do |post|
+            li
+              = link_to post_path(post), class: "block hover:bg-gray-50" do
+                .px-4.py-4.sm:px-6
+                  .flex.items-center.justify-between
+                    .flex.items-center.min-w-0.flex-1
+                      - if post.published
+                        span.px-2.inline-flex.text-xs.leading-5.font-semibold.rounded-full.bg-green-100.text-green-800.mr-3 Published
+                      - else
+                        span.px-2.inline-flex.text-xs.leading-5.font-semibold.rounded-full.bg-gray-100.text-gray-800.mr-3 Private
+
+                      p.text-sm.font-medium.text-indigo-600.truncate
+                        = post.title
+
+                    .ml-2.flex-shrink-0.flex
+                      p.text-sm.text-gray-500
+                        = time_ago_in_words(post.created_at) + " ago"
+    - else
+      .bg-white.shadow.overflow-hidden.sm:rounded-lg.p-6.text-center
+        p.text-gray-500 This user has not created any posts yet.
+
+  / User comments section
+  .mt-8
+    h2.text-xl.font-bold.text-gray-900.mb-4 Comments
+
+    - if @comments.any?
+      .space-y-4
+        - @comments.each do |comment|
+          .bg-white.shadow.overflow-hidden.sm:rounded-lg
+            .px-4.py-4.sm:px-6
+              .flex.items-center.justify-between
+                p.text-sm.font-medium.text-gray-900
+                  | On post:
+                  = link_to comment.post.title, post_path(comment.post), class: "text-indigo-600 hover:text-indigo-900"
+                p.text-sm.text-gray-500
+                  = time_ago_in_words(comment.created_at) + " ago"
+              .mt-2.text-sm.text-gray-700
+                = comment.content
+    - else
+      .bg-white.shadow.overflow-hidden.sm:rounded-lg.p-6.text-center
+        p.text-gray-500 This user has not left any comments yet.

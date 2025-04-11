@@ -1,13 +1,97 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <style>
-      /* Email styles need to be inline */
-    </style>
-  </head>
+doctype html
+html
+  head
+    meta content="text/html; charset=UTF-8" http-equiv="Content-Type"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    title= yield(:title) || "Rails Vite"
 
-  <body>
-    <%= yield %>
-  </body>
-</html>
+    css:
+      /* Email styles need to be inline */
+      body {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f7fa;
+      }
+      .email-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+      .email-header {
+        background: linear-gradient(135deg, #4f46e5, #6366f1);
+        color: white;
+        padding: 24px;
+        text-align: center;
+      }
+      .email-logo {
+        max-width: 180px;
+        margin-bottom: 12px;
+      }
+      .email-content {
+        padding: 24px;
+      }
+      .email-footer {
+        background-color: #f9fafb;
+        color: #6b7280;
+        padding: 16px 24px;
+        text-align: center;
+        font-size: 12px;
+        border-top: 1px solid #e5e7eb;
+      }
+      .button {
+        display: inline-block;
+        background: linear-gradient(135deg, #4f46e5, #6366f1);
+        color: white;
+        text-decoration: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-weight: bold;
+        margin-top: 16px;
+        margin-bottom: 16px;
+      }
+      .divider {
+        border-top: 1px solid #e5e7eb;
+        margin: 24px 0;
+      }
+      .social-icons {
+        margin-top: 12px;
+      }
+      .social-icons a {
+        display: inline-block;
+        margin: 0 8px;
+      }
+      h1, h2, h3 {
+        color: #111827;
+      }
+      p {
+        margin-bottom: 16px;
+      }
+      a {
+        color: #4f46e5;
+      }
+      .text-muted {
+        color: #6b7280;
+      }
+      .text-center {
+        text-align: center;
+      }
+
+  body
+    .email-container
+      .email-header
+        h1 Rails Vite
+
+      .email-content
+        = yield
+
+      .email-footer
+        p
+          | &copy; #{Date.today.year} Rails Vite. All rights reserved.
+          br
+          small.text-muted If you have any questions, please contact our support team at support@example.com

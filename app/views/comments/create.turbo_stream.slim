@@ -1,0 +1,5 @@
+= turbo_stream.prepend "post-comments" do
+  = render @comment
+
+= turbo_stream.update "comments-count" do
+  = pluralize(@post.comments.count, "comment")

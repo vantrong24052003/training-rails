@@ -1,52 +1,59 @@
-class Admin::PostsController < ApplicationController
-    before_action :authenticate_user!
-    before_action :require_admin
+class Admin::PostsController < Admin::BaseController
+  before_action :set_post, only: [ :show, :edit, :update, :destroy ]
+  before_action :load_dependencies, only: [ :new, :create, :edit, :update ]
 
-    def index
-      @posts = Post.all
+  def index
+    @posts = Post.order(created_at: :desc)
+  end
+
+  def show; end
+
+  def new
+    @post = Post.new
+  end
+
+  def create
+    @post = Post.new(post_params)
+
+    if @post.save
+      redirect_to admin_posts_path, notice: "Post was successfully created."
+    else
+      flash.now[:alert] = @post.errors.full_messages.join(", ")
+      render :new
     end
+  end
 
-    def new
-      @post = Post.new
+  def edit; end
+
+  def update
+    if @post.update(post_params)
+      redirect_to admin_posts_path, notice: "Post was successfully updated."
+    else
+      flash.now[:alert] = @post.errors.full_messages.join(", ")
+      render :edit
     end
+  end
 
-    def create
-      @post = Post.new(post_params)
-      if @post.save
-        redirect_to admin_posts_path, notice: "Post was successfully created."
-      else
-        render :new
-      end
+  def destroy
+    if @post.destroy
+      redirect_to admin_posts_path, notice: "Post was successfully deleted."
+    else
+      redirect_to admin_posts_path, alert: "Failed to delete post."
     end
+  end
 
-    def edit
-      @post = Post.find(params[:id])
-    end
+  private
 
-    def update
-      @post = Post.find(params[:id])
-      if @post.update(post_params)
-        redirect_to admin_posts_path, notice: "Post was successfully updated."
-      else
-        render :edit
-      end
-    end
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
-    def destroy
-      @post = Post.find(params[:id])
-      @post.destroy
-      redirect_to admin_posts_path, notice: "Post was successfully destroyed."
-    end
+  def load_dependencies
+    @categories = Category.all
+    @users = User.all
+  end
 
-    private
-
-    def post_params
-      params.require(:post).permit(:title, :content)
-    end
-
-    def require_admin
-      unless current_user.has_role?(:admin)
-        redirect_to root_path, alert: "You are not authorized to access this page."
-      end
-    end
+  def post_params
+    params.require(:post).permit(:title, :content, :published, :category_id, :user_id)
+  end
 end

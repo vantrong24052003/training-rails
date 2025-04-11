@@ -1,11 +1,11 @@
-header.bg-gray-800.shadow-md.sticky.top-0.z-50 data-controller="navigation logout"
+header.bg-gray-800.shadow-md.sticky.top-0.z-50 data-controller="navigation auth"
   .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8
     .flex.justify-between.h-16.items-center
       / Logo and site name
       .flex.items-center
         a.flex-shrink-0.flex.items-center.gap-2 href="/"
-          img.h-9.w-auto src="https://www.shutterstock.com/image-vector/abstract-alphabet-letter-ymbol-icon-260nw-1598431087.jpg" alt="Logo"
-          span.text-xl.font-bold.text-transparent.bg-clip-text.bg-gradient-to-r.from-indigo-600.to-blue-500 RailsVite
+          img.h-9.w-auto src="https://w7.pngwing.com/pngs/782/228/png-transparent-ruby-on-rails-rubygems-amazon-dynamodb-ruby-text-logo-ruby-thumbnail.png" alt="Logo"
+          span.text-xl.font-bold.text-transparent.bg-clip-text.bg-gradient-to-r.from-indigo-600.to-blue-500 ELearning
 
         / Main navigation
         nav.hidden.md:ml-10.md:flex.md:space-x-4
@@ -31,7 +31,7 @@ header.bg-gray-800.shadow-md.sticky.top-0.z-50 data-controller="navigation logou
               .px-4.py-3.border-b.border-gray-100
                 .text-sm.font-medium.text-gray-900 = current_user.email
                 .text-xs.text-gray-500 Logged in
-              = link_to "Your Profile", "#", class: "block px-4 py-2 text-md text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out", role: "menuitem"
+              = link_to "Your Profile", profile_path, class: "block px-4 py-2 text-md text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out", role: "menuitem"
               = link_to "Settings", "#", class: "block px-4 py-2 text-md text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out", role: "menuitem"
               = link_to 'Logout', destroy_user_session_path, class: "block px-4 py-2 text-md text-gray-700 hover:bg-gray-50 transition duration-150 ease-in-out", role: "menuitem", data: { action: "navigation#logout", turbo_method: :delete, turbo_confirm: 'Are you sure?' }
 

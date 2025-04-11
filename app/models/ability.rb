@@ -6,9 +6,9 @@ class Ability
     can :read, Post
 
     if user.has_role? :admin
-      can :manage, Post
+      can :manage, all
     elsif user.has_role? :user
-      can :create, Post
+      can [ :create, :edit, :update, :destroy ], Post, user_id: user.id
     end
   end
 end
