@@ -1,0 +1,54 @@
+main.flex.flex-col.items-center.justify-center.min-h-screen.bg-gray-50.
+  .max-w-md.w-full
+    .text-center.mb-6
+      svg.mx-auto.h-12.w-12.text-indigo-600 xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        circle cx="12" cy="12" r="10"
+        path d="M12 8v4M12 16h.01"
+
+    .bg-white.shadow-lg.rounded-xl.p-8.border.border-gray-100
+      h2.text-xl.font-semibold.text-center.text-gray-800.mb-6
+        | Account Confirmation Status
+
+      - if message == "confirm_success"
+        .text-center.py-4
+          .bg-green-100.rounded-full.h-20.w-20.flex.items-center.justify-center.mx-auto.mb-4
+            svg.h-10.w-10.text-green-600 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"
+          h3.text-lg.font-medium.text-gray-900.mb-2 Success!
+          p.text-green-600.text-center.font-medium
+            | ✅ Tài khoản đã xác nhận thành công!
+          p.text-gray-600.mt-2 You can now sign in and start using our platform.
+          a.mt-6.inline-flex.items-center.px-6.py-3.border.border-transparent.text-base.font-medium.rounded-md.shadow-sm.text-white.bg-indigo-600.hover:bg-indigo-700.focus:outline-none.focus:ring-2.focus:ring-offset-2.focus:ring-indigo-500 href="/users/sign_in"
+            | Sign In Now
+
+      - elsif message == "already_confirmed"
+        .text-center.py-4
+          .bg-yellow-100.rounded-full.h-20.w-20.flex.items-center.justify-center.mx-auto.mb-4
+            svg.h-10.w-10.text-yellow-600 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+          h3.text-lg.font-medium.text-gray-900.mb-2 Already Confirmed
+          p.text-yellow-600.text-center.font-medium
+            | ⚠️ Tài khoản này đã được xác nhận trước đó.
+          p.text-gray-600.mt-2 Your account has already been activated.
+          a.mt-6.inline-flex.items-center.px-6.py-3.border.border-transparent.text-base.font-medium.rounded-md.shadow-sm.text-white.bg-indigo-600.hover:bg-indigo-700.focus:outline-none.focus:ring-2.focus:ring-offset-2.focus:ring-indigo-500 href="/users/sign_in"
+            | Sign In Now
+
+      - elsif message == "invalid_token"
+        .text-center.py-4
+          .bg-red-100.rounded-full.h-20.w-20.flex.items-center.justify-center.mx-auto.mb-4
+            svg.h-10.w-10.text-red-600 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"
+          h3.text-lg.font-medium.text-gray-900.mb-2 Invalid Token
+          p.text-red-600.text-center.font-medium
+            | Mã xác nhận không hợp lệ hoặc đã hết hạn.
+          p.text-gray-600.mt-2 Please request a new confirmation link.
+          a.mt-6.inline-flex.items-center.px-6.py-3.border.border-transparent.text-base.font-medium.rounded-md.shadow-sm.text-white.bg-indigo-600.hover:bg-indigo-700.focus:outline-none.focus:ring-2.focus:ring-offset-2.focus:ring-indigo-500 href="/users/confirmation/new"
+            | Request New Confirmation
+
+  .text-center.text-sm.text-gray-500.mt-8
+    p
+      | © #{Time.now.year} YourSocialNetwork. All rights reserved.
+    p.mt-1
+      a.text-indigo-600.hover:text-indigo-500 href="/help" Need help?
+      span.mx-2.text-gray-400 |
+      a.text-indigo-600.hover:text-indigo-500 href="/contact" Contact support

@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rails 7: Nested Attributes, Rescue_from và Background Jobs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #cc0000;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        .content-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #cc0000;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        h3 {
+            color: #333;
+            margin: 25px 0 15px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+
+        ul,
+        ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .code-block {
+            background-color: #282c34;
+            border-left: 4px solid #cc0000;
+            padding: 16px;
+            margin: 15px 0;
+            overflow-x: auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            line-height: 1.5;
+            white-space: pre;
+        }
+
+        .code-block code {
+            color: #abb2bf;
+            font-size: 15px;
+        }
+
+        .keyword {
+            color: #c678dd;
+        }
+
+        .class-name {
+            color: #e5c07b;
+        }
+
+        .method {
+            color: #61afef;
+        }
+
+        .method-name {
+            color: #98c379;
+        }
+
+        .symbol {
+            color: #e06c75;
+        }
+
+        .string {
+            color: #98c379;
+        }
+
+        .comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+
+        .number {
+            color: #d19a66;
+        }
+
+        .boolean {
+            color: #56b6c2;
+        }
+
+        .variable {
+            color: #e06c75;
+        }
+
+        .note {
+            background-color: #e8f4fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .warning {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .tip {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .terminal {
+            background-color: #1e1e1e;
+            color: #dcdcdc;
+            padding: 16px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .terminal .prompt {
+            color: #4caf50;
+        }
+
+        .terminal .command {
+            color: #dcdcdc;
+        }
+
+        .terminal .output {
+            color: #9e9e9e;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f8f8;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .reference-links {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 20px 0;
+        }
+
+        .reference-links li {
+            margin-bottom: 12px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .reference-links li:before {
+            content: "📚";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .reference-links a {
+            color: #cc0000;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease, border-bottom 0.2s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        .reference-links a:hover {
+            color: #990000;
+            border-bottom: 1px solid #990000;
+        }
+
+        .reference-links a:visited {
+            color: #800000;
+        }
+
+        .step {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #cc0000;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: #cc0000;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            header {
+                padding: 20px 0;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .content-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Rails 7: Nested Attributes, Rescue_from và Background Jobs</h1>
+            <div class="subtitle">Tìm hiểu về các tính năng nâng cao trong Rails 7</div>
+        </header>
+
+        <div class="content-section">
+            <h2>1. Nested Attributes</h2>
+            <p>Nested Attributes là một tính năng mạnh mẽ trong Rails cho phép bạn lưu các attributes của các association models thông qua model cha. Điều này đặc biệt hữu ích khi bạn muốn tạo, cập nhật hoặc xóa các records liên quan trong cùng một form.</p>
+
+            <h3>1.1. Mục đích sử dụng</h3>
+            <ul>
+                <li><strong>Form phức tạp:</strong> Khi bạn cần tạo form cho nhiều model có quan hệ với nhau (ví dụ: đơn hàng và các sản phẩm trong đơn)</li>
+                <li><strong>Quản lý dữ liệu liên quan:</strong> Cho phép người dùng thêm/sửa/xóa các records con thông qua form của record cha</li>
+                <li><strong>Tối ưu UX:</strong> Giúp người dùng thao tác với dữ liệu liên quan mà không cần chuyển trang</li>
+                <li><strong>Đơn giản hóa logic:</strong> Xử lý tất cả dữ liệu liên quan trong một transaction</li>
+            </ul>
+
+            <h3>1.2. Các trường hợp sử dụng phổ biến</h3>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Trường hợp</th>
+                        <th>Ví dụ</th>
+                        <th>Lợi ích</th>
+                    </tr>
+                    <tr>
+                        <td>Form đăng ký có nhiều thông tin phụ</td>
+                        <td>Đăng ký user kèm địa chỉ và preferences</td>
+                        <td>Tạo nhiều records liên quan trong một form</td>
+                    </tr>
+                    <tr>
+                        <td>Quản lý danh sách động</td>
+                        <td>Tạo survey với nhiều câu hỏi</td>
+                        <td>Thêm/xóa items động trong form</td>
+                    </tr>
+                    <tr>
+                        <td>Form chỉnh sửa phức tạp</td>
+                        <td>Chỉnh sửa bài viết và các tags</td>
+                        <td>Cập nhật nhiều records liên quan cùng lúc</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>1.3. Cấu hình chi tiết</h3>
+            <p>Nested Attributes có nhiều options quan trọng:</p>
+
+            <div class="code-block">
+                <pre><code><span class="keyword">class</span> <span class="class-name">Survey</span> < <span class="class-name">ApplicationRecord</span>
+  <span class="method">has_many</span> <span class="symbol">:questions</span>
+  <span class="method">accepts_nested_attributes_for</span> <span class="symbol">:questions</span>,
+    <span class="symbol">allow_destroy:</span> <span class="boolean">true</span>,           <span class="comment"># Cho phép xóa questions</span>
+    <span class="symbol">reject_if:</span> <span class="symbol">:all_blank</span>,         <span class="comment"># Bỏ qua nếu tất cả fields trống</span>
+    <span class="symbol">limit:</span> <span class="number">10</span>,                     <span class="comment"># Giới hạn số lượng questions</span>
+    <span class="symbol">update_only:</span> <span class="boolean">false</span>            <span class="comment"># Cho phép tạo mới hoặc chỉ update</span>
+<span class="keyword">end</span></code></pre>
+            </div>
+
+            <div class="tip">
+                <strong>Mẹo nâng cao:</strong>
+                <ul>
+                    <li>Sử dụng <code>inverse_of</code> trong associations để tối ưu performance</li>
+                    <li>Dùng <code>autosave: true</code> để tự động lưu các records con</li>
+                    <li>Thêm validations cho cả parent và child models</li>
+                </ul>
+            </div>
+
+            <h3>1.4. JavaScript và Dynamic Forms</h3>
+            <p>Để tạo form động với Nested Attributes:</p>
+
+            <div class="code-block">
+                <pre><code><span class="comment"># app/views/surveys/_form.html.erb</span>
+<%= <span class="method">form_with</span>(<span class="symbol">model:</span> <span class="variable">@survey</span>) <span class="keyword">do</span> |<span class="variable">f</span>| %>
+  <span class="variable">f</span>.<span class="method">text_field</span> <span class="symbol">:title</span>
+
+  <span class="comment"># Container cho questions</span>
+  <span class="keyword">div</span> <span class="symbol">id:</span> <span class="string">"questions"</span> <span class="keyword">do</span>
+    <span class="variable">f</span>.<span class="method">fields_for</span> <span class="symbol">:questions</span> <span class="keyword">do</span> |<span class="variable">question</span>|
+      <%= <span class="method">render</span> <span class="string">'question_fields'</span>, <span class="symbol">f:</span> <span class="variable">question</span> %>
+    <% <span class="keyword">end</span> %>
+  <% <span class="keyword">end</span> %>
+
+  <span class="comment"># Link thêm question động</span>
+  <%= <span class="method">link_to_add_fields</span> <span class="string">'Thêm câu hỏi'</span>, <span class="variable">f</span>, <span class="symbol">:questions</span> %>
+<% <span class="keyword">end</span> %>
+
+<span class="comment"># app/javascript/controllers/nested_form_controller.js</span>
+<span class="keyword">import</span> { <span class="class-name">Controller</span> } <span class="keyword">from</span> <span class="string">"@hotwired/stimulus"</span>
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> <span class="keyword">extends</span> <span class="class-name">Controller</span> {
+  <span class="method">addAssociation</span>(<span class="variable">event</span>) {
+    <span class="variable">event</span>.<span class="method">preventDefault</span>()
+    <span class="keyword">const</span> <span class="variable">template</span> = <span class="variable">event</span>.<span class="variable">target</span>.<span class="method">dataset</span>.<span class="variable">template</span>
+    <span class="keyword">const</span> <span class="variable">container</span> = <span class="keyword">document</span>.<span class="method">querySelector</span>(<span class="string">"#questions"</span>)
+    <span class="variable">container</span>.<span class="variable">insertAdjacentHTML</span>(<span class="string">"beforeend"</span>, <span class="variable">template</span>)
+  }
+}</code></pre>
+            </div>
+
+            <div class="warning">
+                <strong>Lưu ý quan trọng:</strong>
+                <ul>
+                    <li>Cẩn thận với Mass Assignment - luôn sử dụng Strong Parameters</li>
+                    <li>Xử lý validation errors cho cả parent và child models</li>
+                    <li>Cân nhắc performance khi có quá nhiều nested records</li>
+                    <li>Sử dụng transaction để đảm bảo tính toàn vẹn dữ liệu</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="content-section">
+            <h2>2. Rescue_from</h2>
+            <p><code>rescue_from</code> là một cơ chế xử lý exceptions tập trung trong Rails, cho phép bạn định nghĩa cách xử lý các loại lỗi khác nhau một cách nhất quán trong toàn bộ ứng dụng.</p>
+
+            <h3>2.1. Mục đích sử dụng</h3>
+            <ul>
+                <li><strong>Xử lý lỗi tập trung:</strong> Định nghĩa logic xử lý lỗi một lần và tái sử dụng</li>
+                <li><strong>Cải thiện UX:</strong> Hiển thị thông báo lỗi thân thiện với người dùng</li>
+                <li><strong>Bảo mật:</strong> Kiểm soát thông tin lỗi được hiển thị ra bên ngoài</li>
+                <li><strong>Logging và Monitoring:</strong> Theo dõi và ghi nhận lỗi một cách có hệ thống</li>
+            </ul>
+
+            <h3>2.2. Các trường hợp sử dụng phổ biến</h3>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Exception</th>
+                        <th>Trường hợp sử dụng</th>
+                        <th>Xử lý phổ biến</th>
+                    </tr>
+                    <tr>
+                        <td>ActiveRecord::RecordNotFound</td>
+                        <td>Record không tồn tại</td>
+                        <td>Redirect hoặc hiển thị 404 page</td>
+                    </tr>
+                    <tr>
+                        <td>ActiveRecord::RecordInvalid</td>
+                        <td>Validation thất bại</td>
+                        <td>Hiển thị form với error messages</td>
+                    </tr>
+                    <tr>
+                        <td>CanCan::AccessDenied</td>
+                        <td>Không có quyền truy cập</td>
+                        <td>Redirect và hiển thị thông báo</td>
+                    </tr>
+                    <tr>
+                        <td>ActionController::InvalidAuthenticityToken</td>
+                        <td>CSRF attack</td>
+                        <td>Reset session và redirect</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>2.3. Cấu hình nâng cao</h3>
+            <div class="code-block">
+                <pre><code><span class="keyword">class</span> <span class="class-name">ApplicationController</span> < <span class="class-name">ActionController::Base</span>
+  <span class="method">rescue_from</span> <span class="class-name">Exception</span>, <span class="symbol">with:</span> <span class="symbol">:handle_exception</span>
+  <span class="method">rescue_from</span> <span class="class-name">ActiveRecord::RecordNotFound</span>, <span class="symbol">with:</span> <span class="symbol">:handle_not_found</span>
+  <span class="method">rescue_from</span> <span class="class-name">User::NotAuthorized</span>, <span class="symbol">with:</span> <span class="symbol">:handle_unauthorized</span>
+
+  <span class="keyword">private</span>
+
+  <span class="keyword">def</span> <span class="method-name">handle_exception</span>(<span class="variable">e</span>)
+    <span class="comment"># Log lỗi</span>
+    <span class="class-name">Rails</span>.<span class="variable">logger</span>.<span class="method">error</span>(<span class="variable">e</span>.<span class="variable">message</span>)
+    <span class="class-name">Rails</span>.<span class="variable">logger</span>.<span class="method">error</span>(<span class="variable">e</span>.<span class="variable">backtrace</span>.<span class="method">join</span>(<span class="string">"\n"</span>))
+
+    <span class="comment"># Notify service monitoring</span>
+    <span class="class-name">Sentry</span>.<span class="method">capture_exception</span>(<span class="variable">e</span>) <span class="keyword">if</span> <span class="class-name">Rails</span>.<span class="variable">env</span>.<span class="method">production?</span>
+
+    <span class="comment"># Render error page</span>
+    <span class="method">respond_to</span> <span class="keyword">do</span> |<span class="variable">format</span>|
+      <span class="variable">format</span>.<span class="method">html</span> { <span class="method">render</span> <span class="string">'errors/500'</span>, <span class="symbol">status:</span> <span class="number">500</span> }
+      <span class="variable">format</span>.<span class="method">json</span> { <span class="method">render</span> <span class="symbol">json:</span> { <span class="symbol">error:</span> <span class="string">'Internal Server Error'</span> }, <span class="symbol">status:</span> <span class="number">500</span> }
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">def</span> <span class="method-name">handle_not_found</span>(<span class="variable">e</span>)
+    <span class="method">respond_to</span> <span class="keyword">do</span> |<span class="variable">format</span>|
+      <span class="variable">format</span>.<span class="method">html</span> { <span class="method">render</span> <span class="string">'errors/404'</span>, <span class="symbol">status:</span> <span class="symbol">:not_found</span> }
+      <span class="variable">format</span>.<span class="method">json</span> { <span class="method">render</span> <span class="symbol">json:</span> { <span class="symbol">error:</span> <span class="string">'Resource not found'</span> }, <span class="symbol">status:</span> <span class="symbol">:not_found</span> }
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">def</span> <span class="method-name">handle_unauthorized</span>(<span class="variable">e</span>)
+    <span class="method">respond_to</span> <span class="keyword">do</span> |<span class="variable">format</span>|
+      <span class="variable">format</span>.<span class="method">html</span> <span class="keyword">do</span>
+        <span class="method">flash</span>[<span class="symbol">:alert</span>] = <span class="string">'Bạn không có quyền thực hiện hành động này'</span>
+        <span class="method">redirect_to</span> <span class="method">root_path</span>
+      <span class="keyword">end</span>
+      <span class="variable">format</span>.<span class="method">json</span> { <span class="method">render</span> <span class="symbol">json:</span> { <span class="symbol">error:</span> <span class="string">'Unauthorized'</span> }, <span class="symbol">status:</span> <span class="symbol">:forbidden</span> }
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></code></pre>
+            </div>
+
+            <div class="tip">
+                <strong>Best Practices:</strong>
+                <ul>
+                    <li>Tạo các custom exceptions có ý nghĩa cho ứng dụng</li>
+                    <li>Phân cấp exceptions để xử lý theo nhóm</li>
+                    <li>Sử dụng concerns để chia sẻ rescue_from giữa các controllers</li>
+                    <li>Kết hợp với logging và monitoring services</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="content-section">
+            <h2>3. Background Jobs</h2>
+            <p>Background Jobs là giải pháp để xử lý các tác vụ nặng, tốn thời gian hoặc không cần phản hồi ngay lập tức, giúp cải thiện performance và trải nghiệm người dùng trong Rails applications.</p>
+
+            <h3>3.1. Mục đích sử dụng</h3>
+            <ul>
+                <li><strong>Tối ưu response time:</strong> Xử lý các tác vụ nặng mà không block request</li>
+                <li><strong>Xử lý bất đồng bộ:</strong> Thực hiện các tác vụ không cần phản hồi ngay</li>
+                <li><strong>Quản lý tài nguyên:</strong> Phân phối tải cho hệ thống</li>
+                <li><strong>Retry mechanism:</strong> Tự động thử lại khi tác vụ thất bại</li>
+            </ul>
+
+            <h3>3.2. Các trường hợp sử dụng phổ biến</h3>
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Loại tác vụ</th>
+                        <th>Ví dụ</th>
+                        <th>Lợi ích</th>
+                    </tr>
+                    <tr>
+                        <td>Email và Notifications</td>
+                        <td>Gửi email xác nhận, thông báo</td>
+                        <td>Không làm chậm response time</td>
+                    </tr>
+                    <tr>
+                        <td>File Processing</td>
+                        <td>Xử lý import/export, resize ảnh</td>
+                        <td>Xử lý file lớn không block</td>
+                    </tr>
+                    <tr>
+                        <td>Third-party API</td>
+                        <td>Đồng bộ dữ liệu, thanh toán</td>
+                        <td>Độc lập với external services</td>
+                    </tr>
+                    <tr>
+                        <td>Data Analytics</td>
+                        <td>Tính toán báo cáo, thống kê</td>
+                        <td>Xử lý dữ liệu lớn hiệu quả</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>3.3. Cấu hình và Quản lý Jobs</h3>
+            <p>Sidekiq là một trong những adapter phổ biến nhất cho Active Job:</p>
+
+            <div class="code-block">
+                <pre><code><span class="comment"># config/initializers/sidekiq.rb</span>
+<span class="class-name">Sidekiq</span>.<span class="method">configure_server</span> <span class="keyword">do</span> |<span class="variable">config</span>|
+  <span class="variable">config</span>.<span class="variable">redis</span> = { <span class="symbol">url:</span> <span class="string">'redis://localhost:6379/0'</span> }
+
+  <span class="comment"># Cấu hình retry</span>
+  <span class="variable">config</span>.<span class="variable">average_scheduled_poll_interval</span> = <span class="number">5</span>
+  <span class="variable">config</span>.<span class="variable">max_retries</span> = <span class="number">10</span>
+
+  <span class="comment"># Dead job configuration</span>
+  <span class="variable">config</span>.<span class="variable">death_handlers</span> << ->(job, ex) <span class="keyword">do</span>
+    <span class="class-name">DeadJobNotifier</span>.<span class="method">notify</span>(<span class="variable">job</span>, <span class="variable">ex</span>)
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment"># app/jobs/complex_calculation_job.rb</span>
+<span class="keyword">class</span> <span class="class-name">ComplexCalculationJob</span> < <span class="class-name">ApplicationJob</span>
+  <span class="method">queue_as</span> <span class="symbol">:critical</span>
+
+  <span class="method">retry_on</span> <span class="class-name">StandardError</span>, <span class="symbol">wait:</span> <span class="symbol">:exponentially_longer</span>, <span class="symbol">attempts:</span> <span class="number">5</span>
+  <span class="method">discard_on</span> <span class="class-name">ActiveRecord::RecordNotFound</span>
+
+  <span class="method">around_perform</span> <span class="symbol">:around_calculation</span>
+
+  <span class="keyword">def</span> <span class="method-name">perform</span>(<span class="variable">report_id</span>)
+    <span class="variable">report</span> = <span class="class-name">Report</span>.<span class="method">find</span>(<span class="variable">report_id</span>)
+    <span class="variable">result</span> = <span class="method">calculate_complex_data</span>(<span class="variable">report</span>)
+    <span class="method">update_report</span>(<span class="variable">report</span>, <span class="variable">result</span>)
+  <span class="keyword">end</span>
+
+  <span class="keyword">private</span>
+
+  <span class="keyword">def</span> <span class="method-name">around_calculation</span>
+    <span class="class-name">ActiveRecord::Base</span>.<span class="method">transaction</span> <span class="keyword">do</span>
+      <span class="method">yield</span>
+    <span class="keyword">end</span>
+  <span class="keyword">rescue</span> => <span class="variable">e</span>
+    <span class="class-name">Rails</span>.<span class="variable">logger</span>.<span class="method">error</span>(<span class="string">"Calculation failed: #{e.message}"</span>)
+    <span class="method">raise</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></code></pre>
+            </div>
+
+            <h3>3.4. Monitoring và Debug</h3>
+            <p>Các công cụ và practices để theo dõi background jobs:</p>
+
+            <div class="code-block">
+                <pre><code><span class="comment"># config/initializers/sidekiq.rb</span>
+<span class="class-name">Sidekiq</span>.<span class="method">configure_server</span> <span class="keyword">do</span> |<span class="variable">config</span>|
+  <span class="variable">config</span>.<span class="method">on</span>(<span class="symbol">:startup</span>) <span class="keyword">do</span>
+    <span class="class-name">Schedule</span>.<span class="method">load_from_hash</span>(<span class="class-name">YAML</span>.<span class="method">load_file</span>(<span class="string">'config/schedule.yml'</span>))
+  <span class="keyword">end</span>
+
+  <span class="variable">config</span>.<span class="method">death_handlers</span> << ->(job, ex) <span class="keyword">do</span>
+    <span class="class-name">Airbrake</span>.<span class="method">notify_sync</span>(<span class="variable">ex</span>, <span class="symbol">parameters:</span> <span class="variable">job</span>)
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment"># config/routes.rb</span>
+<span class="method">require</span> <span class="string">'sidekiq/web'</span>
+<span class="class-name">Rails</span>.<span class="method">application</span>.<span class="method">routes</span>.<span class="method">draw</span> <span class="keyword">do</span>
+  <span class="method">authenticate</span> <span class="symbol">:admin</span> <span class="keyword">do</span>
+    <span class="method">mount</span> <span class="class-name">Sidekiq::Web</span> => <span class="string">'/sidekiq'</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></code></pre>
+            </div>
+
+            <div class="warning">
+                <strong>Những điểm cần lưu ý:</strong>
+                <ul>
+                    <li>Luôn có cơ chế retry và error handling</li>
+                    <li>Sử dụng các queue khác nhau cho các loại job khác nhau</li>
+                    <li>Monitoring và alerting cho failed jobs</li>
+                    <li>Cẩn thận với memory leaks trong long-running jobs</li>
+                    <li>Backup và recovery strategy cho job queue</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <strong>Performance Tips:</strong>
+                <ul>
+                    <li>Batch processing cho nhiều jobs cùng loại</li>
+                    <li>Sử dụng connection pool cho database connections</li>
+                    <li>Cấu hình số lượng workers phù hợp với tài nguyên</li>
+                    <li>Implement rate limiting cho các API calls</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>4. Tài liệu tham khảo</h2>
+            <ul class="reference-links">
+                <li><a href="https://guides.rubyonrails.org/form_helpers.html#nested-forms" target="_blank">Rails Guides: Nested Forms</a></li>
+                <li><a href="https://guides.rubyonrails.org/action_controller_overview.html#rescue-from" target="_blank">Rails Guides: Rescue From</a></li>
+                <li><a href="https://guides.rubyonrails.org/active_job_basics.html" target="_blank">Rails Guides: Active Job Basics</a></li>
+                <li><a href="https://github.com/mperham/sidekiq/wiki" target="_blank">Sidekiq Wiki</a></li>
+                <li><a href="https://www.engineyard.com/blog/active-job-basics/" target="_blank">Engine Yard: Active Job Basics</a></li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>© 2025 Ruby on Rails Tutorial - Advanced Features</p>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+.auth-container style="max-width: 500px; margin: 40px auto; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #333;"
+  .auth-header style="text-align: center; margin-bottom: 30px;"
+    h1 style="color: #4267B2; font-size: 24px; margin-bottom: 10px;"
+      svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 8px; fill: #4267B2;"
+        path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 8c0 .557-.447 1.008-1 1.008s-1-.45-1-1.008c0-.557.447-1.008 1-1.008s1 .452 1 1.008zm0 2h-2v6h2v-6zm3 0h-2v6h2v-2.861c0-1.722 2.002-1.881 2.002 0v2.861h1.998v-3.359c0-3.284-3.128-3.164-4-1.548v-1.093z"
+      | YourSocialNetwork
+    h2 style="color: #4267B2; font-size: 20px; margin-top: 0;"
+      | &#128233; Resend Confirmation Email
+
+  .auth-card style="background-color: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 25px;"
+    = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+      = render "devise/shared/error_messages", resource: resource
+
+      .form-field style="margin-bottom: 20px;"
+        = f.label :email, style: "display: block; font-weight: bold; margin-bottom: 8px; color: #555;"
+        .input-container style="position: relative;"
+          svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" style="position: absolute; left: 10px; top: 12px; fill: #999;"
+            path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"
+          = f.email_field :email, autofocus: true, autocomplete: "email",
+                          value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+                          style: "width: 100%; padding: 12px 12px 12px 35px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; box-sizing: border-box;"
+
+      p.helper-text style="margin: 15px 0; font-size: 13px; color: #777; line-height: 1.5;"
+        | &#9432; Enter your email address and we'll send you instructions to confirm your account.
+
+      .form-actions style="margin-top: 25px;"
+        = f.submit "Resend Confirmation Email",
+                  style: "width: 100%; padding: 12px; background-color: #4267B2; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 14px; letter-spacing: 0.5px;"
+
+    .auth-links style="margin-top: 20px; text-align: center; font-size: 14px;"
+      = render "devise/shared/links"
+
+  .auth-footer style="margin-top: 30px; text-align: center; font-size: 12px; color: #777;"
+    p
+      | &#169; #{Time.now.year} YourSocialNetwork. All rights reserved.
