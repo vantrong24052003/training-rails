@@ -1,7 +1,7 @@
 .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8.py-8
   h1.text-3xl.font-extrabold.text-gray-900.mb-8 Categories
 
-  .grid.grid-cols-1.gap-6.sm:grid-cols-2.md:grid-cols-3.lg:grid-cols-4
+  .grid.grid-cols-1.space-y-2.sm:grid-cols-2.md:grid-cols-3.lg:grid-cols-4
     - @categories.each do |category|
       = link_to category_path(category), class: "relative block bg-white border border-gray-200 rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 overflow-hidden" do
         .h-full

@@ -1,7 +1,8 @@
 module ExceptionHandler
   extend ActiveSupport::Concern
  included do
-  rescue_from StandardError, with: :handle_exception
+  # Remove StandardError rescue to allow seeing actual errors during development
+  # rescue_from StandardError, with: :handle_exception
   rescue_from ActiveRecord::RecordNotFound, with: :handle_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :handle_invalid_record
   rescue_from ActiveRecord::RecordNotUnique, with: :handle_not_unique

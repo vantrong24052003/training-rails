@@ -1,0 +1,57 @@
+/ filepath: /home/vantrong/Documents/rails-vite/app/views/comments/_comment.html.slim
+= turbo_frame_tag dom_id(comment) do
+  .bg-white.rounded-xl.shadow-sm.overflow-hidden.border.border-gray-100.hover:shadow-md.transition-all.duration-200
+    .p-5
+      / Comment header with user info
+      .flex.items-start
+        / User avatar with improved styling
+        - if comment.user.respond_to?(:avatar) && comment.user.avatar.present?
+          = image_tag comment.user.avatar, class: "h-10 w-10 rounded-full border-2 border-white shadow-sm", alt: comment.user.email
+        - else
+          .h-10.w-10.rounded-full.bg-gradient-to-r.from-blue-500.to-indigo-600.flex.items-center.justify-center.text-white.font-bold.border-2.border-white.shadow-sm
+            = comment.user.email[0].upcase
+
+        .flex-1.min-w-0.ml-3
+          .flex.items-center.justify-between
+            .flex.items-start.flex-col
+              .flex.items-center
+                h4.font-semibold.text-gray-900= comment.user.email.split('@').first
+                span.inline-flex.items-center.ml-2.px-2.py-0.5.rounded-full.text-xs.font-medium.bg-gray-100.text-gray-600
+                  svg.h-3.w-3.mr-1.text-gray-400 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  = time_ago_in_words(comment.created_at)
+                  span.mx-0.5 ago
+
+            / Comment actions dropdown
+            - if user_can_edit?(comment)
+              .dropdown.relative
+                button.p-1.rounded-full.text-gray-400.hover:bg-gray-100.hover:text-gray-600.focus:outline-none.transition type="button" data-action="post#toggleDropdown"
+                  svg.h-5.w-5 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                .hidden.absolute.right-0.mt-1.w-48.bg-white.rounded-lg.shadow-xl.z-10.border.border-gray-100.py-1.dropdown-menu data-post-target="dropdownMenu"
+                  = link_to [:edit, comment.post, comment], class: "block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-50 transition" do
+                    .flex.items-center
+                      svg.h-4.w-4.mr-2.text-gray-500 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                      | Edit Comment
+                  = link_to [comment.post, comment], data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to delete this comment?' }, class: "block px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition" do
+                    .flex.items-center
+                      svg.h-4.w-4.mr-2.text-red-500 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      | Delete Comment
+
+      / Comment content with improved typography and spacing
+      .mt-3.prose.prose-sm.max-w-none.text-gray-700.bg-gray-50.rounded-xl.p-4
+        = simple_format comment.content
+
+      / Comment footer with actions
+      .mt-3.flex.items-center.text-xs.text-gray-500
+        button.inline-flex.items-center.hover:text-indigo-600.transition.mr-4
+          svg.h-4.w-4.mr-1 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"
+          | Like
+
+        button.inline-flex.items-center.hover:text-indigo-600.transition
+          svg.h-4.w-4.mr-1 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+            path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"
+          | Reply

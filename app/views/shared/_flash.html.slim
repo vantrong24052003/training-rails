@@ -1,8 +1,8 @@
+= turbo_frame_tag "flash" do
+  - if flash[:notice]
+    script
+      | toastr.success("#{j flash[:notice]}")
 
-- if flash[:notice]
-  script
-    | toastr.success("#{j flash[:notice]}")
-
-- if flash[:alert]
-  script
-    | toastr.error("#{j flash[:alert]}")
+  - if flash[:alert]
+    script
+      | toastr.error("#{j flash[:alert]}")

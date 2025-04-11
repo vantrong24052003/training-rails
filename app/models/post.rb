@@ -4,6 +4,12 @@ class Post < ApplicationRecord
   belongs_to :category
   has_many :comments, dependent: :destroy
 
+  # Broadcasting configuration with render: true to ensure proper rendering
+  include ActionView::RecordIdentifier
+  after_create_commit -> { broadcast_prepend_to "posts", target: "posts", partial: "posts/post", locals: { post: self }, render: true }
+  after_update_commit -> { broadcast_replace_to "posts", target: dom_id(self), partial: "posts/post", locals: { post: self }, render: true }
+  after_destroy_commit -> { broadcast_remove_to "posts", target: dom_id(self) }
+
   # Scopes
   scope :published, -> { where(published: true) }
   scope :recent, -> { order(created_at: :desc) }

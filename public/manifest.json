@@ -1,0 +1,16 @@
+{
+  "name": "Rails Vite Application",
+  "short_name": "RailsVite",
+  "description": "A Rails application with Vite.js integration",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
